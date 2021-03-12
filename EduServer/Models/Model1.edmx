@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="serdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="lecture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+          <Property Name="specialization_id" Type="int" Nullable="false" />
+          <Property Name="clas" Type="int" Nullable="false" />
+          <Property Name="lecture_at_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lecture_at">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="time_at" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="specialization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+          <Property Name="clas" Type="int" Nullable="false" />
+          <Property Name="specialization_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_lecture_Tolecture_at">
+          <End Role="lecture_at" Type="Self.lecture_at" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lecture" Type="Self.lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lecture_at">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="lecture_at_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lectures_ToSpecialization">
+          <End Role="specialization" Type="Self.specialization" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lecture" Type="Self.lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="specialization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="specialization_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_student_ToSpecialization">
+          <End Role="specialization" Type="Self.specialization" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="student" Type="Self.student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="specialization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="specialization_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="serdbModelStoreContainer">
+          <EntitySet Name="lecture" EntityType="Self.lecture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lecture_at" EntityType="Self.lecture_at" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="specialization" EntityType="Self.specialization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="student" EntityType="Self.student" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_lecture_Tolecture_at" Association="Self.FK_lecture_Tolecture_at">
+            <End Role="lecture_at" EntitySet="lecture_at" />
+            <End Role="lecture" EntitySet="lecture" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lectures_ToSpecialization" Association="Self.FK_lectures_ToSpecialization">
+            <End Role="specialization" EntitySet="specialization" />
+            <End Role="lecture" EntitySet="lecture" />
+          </AssociationSet>
+          <AssociationSet Name="FK_student_ToSpecialization" Association="Self.FK_student_ToSpecialization">
+            <End Role="specialization" EntitySet="specialization" />
+            <End Role="student" EntitySet="student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="serdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="lecture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="specialization_id" Type="Int32" Nullable="false" />
+          <Property Name="clas" Type="Int32" Nullable="false" />
+          <Property Name="lecture_at_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="lecture_at" Relationship="Self.FK_lecture_Tolecture_at" FromRole="lecture" ToRole="lecture_at" />
+          <NavigationProperty Name="specialization" Relationship="Self.FK_lectures_ToSpecialization" FromRole="lecture" ToRole="specialization" />
+        </EntityType>
+        <EntityType Name="lecture_at">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="time_at" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="lectures" Relationship="Self.FK_lecture_Tolecture_at" FromRole="lecture_at" ToRole="lecture" />
+        </EntityType>
+        <EntityType Name="specialization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="lectures" Relationship="Self.FK_lectures_ToSpecialization" FromRole="specialization" ToRole="lecture" />
+          <NavigationProperty Name="students" Relationship="serdbModel.FK_student_ToSpecialization" FromRole="specialization" ToRole="student" />
+        </EntityType>
+        <Association Name="FK_lecture_Tolecture_at">
+          <End Role="lecture_at" Type="Self.lecture_at" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lecture" Type="Self.lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lecture_at">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="lecture_at_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lectures_ToSpecialization">
+          <End Role="specialization" Type="Self.specialization" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lecture" Type="Self.lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="specialization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="specialization_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="serdbEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="lectures" EntityType="Self.lecture" />
+          <EntitySet Name="lecture_at" EntityType="Self.lecture_at" />
+          <EntitySet Name="specializations" EntityType="Self.specialization" />
+          <AssociationSet Name="FK_lecture_Tolecture_at" Association="Self.FK_lecture_Tolecture_at">
+            <End Role="lecture_at" EntitySet="lecture_at" />
+            <End Role="lecture" EntitySet="lectures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lectures_ToSpecialization" Association="Self.FK_lectures_ToSpecialization">
+            <End Role="specialization" EntitySet="specializations" />
+            <End Role="lecture" EntitySet="lectures" />
+          </AssociationSet>
+          <EntitySet Name="students" EntityType="serdbModel.student" />
+          <AssociationSet Name="FK_student_ToSpecialization" Association="serdbModel.FK_student_ToSpecialization">
+            <End Role="specialization" EntitySet="specializations" />
+            <End Role="student" EntitySet="students" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="clas" Type="Int32" Nullable="false" />
+          <Property Name="specialization_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="specialization" Relationship="serdbModel.FK_student_ToSpecialization" FromRole="student" ToRole="specialization" />
+        </EntityType>
+        <Association Name="FK_student_ToSpecialization">
+          <End Type="serdbModel.specialization" Role="specialization" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.student" Role="student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="specialization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="specialization_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="serdbModelStoreContainer" CdmEntityContainer="serdbEntities1">
+          <EntitySetMapping Name="lectures">
+            <EntityTypeMapping TypeName="serdbModel.lecture">
+              <MappingFragment StoreEntitySet="lecture">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="specialization_id" ColumnName="specialization_id" />
+                <ScalarProperty Name="clas" ColumnName="clas" />
+                <ScalarProperty Name="lecture_at_id" ColumnName="lecture_at_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lecture_at">
+            <EntityTypeMapping TypeName="serdbModel.lecture_at">
+              <MappingFragment StoreEntitySet="lecture_at">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="time_at" ColumnName="time_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="specializations">
+            <EntityTypeMapping TypeName="serdbModel.specialization">
+              <MappingFragment StoreEntitySet="specialization">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="students">
+            <EntityTypeMapping TypeName="serdbModel.student">
+              <MappingFragment StoreEntitySet="student">
+                <ScalarProperty Name="specialization_id" ColumnName="specialization_id" />
+                <ScalarProperty Name="clas" ColumnName="clas" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

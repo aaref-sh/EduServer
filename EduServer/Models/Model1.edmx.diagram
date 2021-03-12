@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e0b2aa7500ea4a118f7d8ef23b2019c4" Name="Diagram1" ZoomLevel="100">
+        <EntityTypeShape EntityType="serdbModel.lecture" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="serdbModel.lecture_at" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="serdbModel.specialization" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="serdbModel.FK_lecture_Tolecture_at" ManuallyRouted="false" />
+        <AssociationConnector Association="serdbModel.FK_lectures_ToSpecialization" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="serdbModel.student" Width="1.5" PointX="0.625" PointY="4" />
+        <AssociationConnector Association="serdbModel.FK_student_ToSpecialization" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
