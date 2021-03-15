@@ -10,107 +10,112 @@ using EduServer.Models;
 
 namespace EduServer.Controllers
 {
-    public class TimesController : Controller
+    public class NotificationsController : Controller
     {
         private serdbEntities2 db = new serdbEntities2();
 
-        // GET: /Times/
+        // GET: /Notifications/
         public ActionResult Index()
         {
-            return View(db.lecture_at.ToList());
+            var notifications = db.notifications.Include(n => n.teacher);
+            return View(notifications.ToList());
         }
 
-        // GET: /Times/Details/5
+        // GET: /Notifications/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            lecture_at lecture_at = db.lecture_at.Find(id);
-            if (lecture_at == null)
+            notification notification = db.notifications.Find(id);
+            if (notification == null)
             {
                 return HttpNotFound();
             }
-            return View(lecture_at);
+            return View(notification);
         }
 
-        // GET: /Times/Create
+        // GET: /Notifications/Create
         public ActionResult Create()
         {
+            ViewBag.author = new SelectList(db.teachers, "Id", "name");
             return View();
         }
 
-        // POST: /Times/Create
+        // POST: /Notifications/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,time_at")] lecture_at lecture_at)
+        public ActionResult Create([Bind(Include="Id,author,title,description")] notification notification)
         {
             if (ModelState.IsValid)
             {
-                db.lecture_at.Add(lecture_at);
+                db.notifications.Add(notification);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(lecture_at);
+            ViewBag.author = new SelectList(db.teachers, "Id", "name", notification.author);
+            return View(notification);
         }
 
-        // GET: /Times/Edit/5
+        // GET: /Notifications/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            lecture_at lecture_at = db.lecture_at.Find(id);
-            if (lecture_at == null)
+            notification notification = db.notifications.Find(id);
+            if (notification == null)
             {
                 return HttpNotFound();
             }
-            return View(lecture_at);
+            ViewBag.author = new SelectList(db.teachers, "Id", "name", notification.author);
+            return View(notification);
         }
 
-        // POST: /Times/Edit/5
+        // POST: /Notifications/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,time_at")] lecture_at lecture_at)
+        public ActionResult Edit([Bind(Include="Id,author,title,description")] notification notification)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(lecture_at).State = EntityState.Modified;
+                db.Entry(notification).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(lecture_at);
+            ViewBag.author = new SelectList(db.teachers, "Id", "name", notification.author);
+            return View(notification);
         }
 
-        // GET: /Times/Delete/5
+        // GET: /Notifications/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            lecture_at lecture_at = db.lecture_at.Find(id);
-            if (lecture_at == null)
+            notification notification = db.notifications.Find(id);
+            if (notification == null)
             {
                 return HttpNotFound();
             }
-            return View(lecture_at);
+            return View(notification);
         }
 
-        // POST: /Times/Delete/5
+        // POST: /Notifications/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            lecture_at lecture_at = db.lecture_at.Find(id);
-            db.lecture_at.Remove(lecture_at);
+            notification notification = db.notifications.Find(id);
+            db.notifications.Remove(notification);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

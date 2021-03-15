@@ -13,10 +13,10 @@ namespace EduServer.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class serdbEntities1 : DbContext
+    public partial class serdbEntities2 : DbContext
     {
-        public serdbEntities1()
-            : base("name=serdbEntities1")
+        public serdbEntities2()
+            : base("name=serdbEntities2")
         {
         }
     
@@ -29,5 +29,8 @@ namespace EduServer.Models
         public DbSet<lecture_at> lecture_at { get; set; }
         public DbSet<specialization> specializations { get; set; }
         public DbSet<student> students { get; set; }
+        public DbSet<teacher> teachers { get; set; }
+        public DbSet<dayinweek> dayinweeks { get; set; }
+        public DbSet<notification> notifications { get; set; }
     }
 }

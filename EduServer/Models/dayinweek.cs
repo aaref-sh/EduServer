@@ -12,16 +12,16 @@ namespace EduServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class student
+    public partial class dayinweek
     {
-        public int Id { get; set; }
-        public string firstname { get; set; }
-        public string lastname { get; set; }
-        public int year { get; set; }
-        public int clas { get; set; }
-        public int specialization_id { get; set; }
-        public string password { get; set; }
+        public dayinweek()
+        {
+            this.lectures = new HashSet<lecture>();
+        }
     
-        public virtual specialization specialization { get; set; }
+        public int id { get; set; }
+        public string dayname { get; set; }
+    
+        public virtual ICollection<lecture> lectures { get; set; }
     }
 }

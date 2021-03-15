@@ -12,12 +12,12 @@ namespace EduServer.Controllers
 {
     public class LecturesController : Controller
     {
-        private serdbEntities1 db = new serdbEntities1();
+        private serdbEntities2 db = new serdbEntities2();
 
         // GET: /Lectures/
         public ActionResult Index()
         {
-            var lectures = db.lectures.Include(l => l.lecture_at).Include(l => l.specialization);
+            var lectures = db.lectures.Include(l => l.lecture_at).Include(l => l.specialization).Include(l => l.dayinweek1);
             return View(lectures.ToList());
         }
 
@@ -41,6 +41,7 @@ namespace EduServer.Controllers
         {
             ViewBag.lecture_at_id = new SelectList(db.lecture_at, "Id", "time_at");
             ViewBag.specialization_id = new SelectList(db.specializations, "Id", "name");
+            ViewBag.dayinweek = new SelectList(db.dayinweeks, "id", "dayname");
             return View();
         }
 
@@ -49,7 +50,7 @@ namespace EduServer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,name,year,specialization_id,clas,lecture_at_id")] lecture lecture)
+        public ActionResult Create([Bind(Include="Id,name,year,specialization_id,clas,lecture_at_id,dayinweek")] lecture lecture)
         {
             if (ModelState.IsValid)
             {
@@ -60,6 +61,7 @@ namespace EduServer.Controllers
 
             ViewBag.lecture_at_id = new SelectList(db.lecture_at, "Id", "time_at", lecture.lecture_at_id);
             ViewBag.specialization_id = new SelectList(db.specializations, "Id", "name", lecture.specialization_id);
+            ViewBag.dayinweek = new SelectList(db.dayinweeks, "id", "dayname", lecture.dayinweek);
             return View(lecture);
         }
 
@@ -77,6 +79,7 @@ namespace EduServer.Controllers
             }
             ViewBag.lecture_at_id = new SelectList(db.lecture_at, "Id", "time_at", lecture.lecture_at_id);
             ViewBag.specialization_id = new SelectList(db.specializations, "Id", "name", lecture.specialization_id);
+            ViewBag.dayinweek = new SelectList(db.dayinweeks, "id", "dayname", lecture.dayinweek);
             return View(lecture);
         }
 
@@ -85,7 +88,7 @@ namespace EduServer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,name,year,specialization_id,clas,lecture_at_id")] lecture lecture)
+        public ActionResult Edit([Bind(Include="Id,name,year,specialization_id,clas,lecture_at_id,dayinweek")] lecture lecture)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +98,7 @@ namespace EduServer.Controllers
             }
             ViewBag.lecture_at_id = new SelectList(db.lecture_at, "Id", "time_at", lecture.lecture_at_id);
             ViewBag.specialization_id = new SelectList(db.specializations, "Id", "name", lecture.specialization_id);
+            ViewBag.dayinweek = new SelectList(db.dayinweeks, "id", "dayname", lecture.dayinweek);
             return View(lecture);
         }
 

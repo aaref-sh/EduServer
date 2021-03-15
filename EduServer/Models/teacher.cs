@@ -12,16 +12,17 @@ namespace EduServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class student
+    public partial class teacher
     {
+        public teacher()
+        {
+            this.notifications = new HashSet<notification>();
+        }
+    
         public int Id { get; set; }
-        public string firstname { get; set; }
-        public string lastname { get; set; }
-        public int year { get; set; }
-        public int clas { get; set; }
-        public int specialization_id { get; set; }
+        public string name { get; set; }
         public string password { get; set; }
     
-        public virtual specialization specialization { get; set; }
+        public virtual ICollection<notification> notifications { get; set; }
     }
 }

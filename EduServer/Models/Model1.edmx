@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="serdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="dayinweek">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="dayname" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="lecture">
           <Key>
             <PropertyRef Name="Id" />
@@ -15,6 +22,7 @@
           <Property Name="specialization_id" Type="int" Nullable="false" />
           <Property Name="clas" Type="int" Nullable="false" />
           <Property Name="lecture_at_id" Type="int" Nullable="false" />
+          <Property Name="dayinweek" Type="int" />
         </EntityType>
         <EntityType Name="lecture_at">
           <Key>
@@ -22,6 +30,15 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="time_at" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="author" Type="int" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="specialization">
           <Key>
@@ -40,7 +57,44 @@
           <Property Name="year" Type="int" Nullable="false" />
           <Property Name="clas" Type="int" Nullable="false" />
           <Property Name="specialization_id" Type="int" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="teacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__lecture__dayinwe__440B1D61">
+          <End Role="dayinweek" Type="Self.dayinweek" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lecture" Type="Self.lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dayinweek">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="dayinweek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__notificat__autho__46E78A0C">
+          <End Role="teacher" Type="Self.teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_lecture_Tolecture_at">
           <End Role="lecture_at" Type="Self.lecture_at" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -84,10 +138,21 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="serdbModelStoreContainer">
+          <EntitySet Name="dayinweek" EntityType="Self.dayinweek" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lecture" EntityType="Self.lecture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lecture_at" EntityType="Self.lecture_at" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="specialization" EntityType="Self.specialization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="student" EntityType="Self.student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teacher" EntityType="Self.teacher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__lecture__dayinwe__440B1D61" Association="Self.FK__lecture__dayinwe__440B1D61">
+            <End Role="dayinweek" EntitySet="dayinweek" />
+            <End Role="lecture" EntitySet="lecture" />
+          </AssociationSet>
+          <AssociationSet Name="FK__notificat__autho__46E78A0C" Association="Self.FK__notificat__autho__46E78A0C">
+            <End Role="teacher" EntitySet="teacher" />
+            <End Role="notification" EntitySet="notification" />
+          </AssociationSet>
           <AssociationSet Name="FK_lecture_Tolecture_at" Association="Self.FK_lecture_Tolecture_at">
             <End Role="lecture_at" EntitySet="lecture_at" />
             <End Role="lecture" EntitySet="lecture" />
@@ -117,6 +182,8 @@
           <Property Name="lecture_at_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="lecture_at" Relationship="Self.FK_lecture_Tolecture_at" FromRole="lecture" ToRole="lecture_at" />
           <NavigationProperty Name="specialization" Relationship="Self.FK_lectures_ToSpecialization" FromRole="lecture" ToRole="specialization" />
+          <Property Name="dayinweek" Type="Int32" />
+          <NavigationProperty Name="dayinweek1" Relationship="serdbModel.FK__lecture__dayinwe__440B1D61" FromRole="lecture" ToRole="dayinweek" />
         </EntityType>
         <EntityType Name="lecture_at">
           <Key>
@@ -133,7 +200,29 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="lectures" Relationship="Self.FK_lectures_ToSpecialization" FromRole="specialization" ToRole="lecture" />
-          <NavigationProperty Name="students" Relationship="serdbModel.FK_student_ToSpecialization" FromRole="specialization" ToRole="student" />
+          <NavigationProperty Name="students" Relationship="Self.FK_student_ToSpecialization" FromRole="specialization" ToRole="student" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="clas" Type="Int32" Nullable="false" />
+          <Property Name="specialization_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="specialization" Relationship="Self.FK_student_ToSpecialization" FromRole="student" ToRole="specialization" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="teacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="notifications" Relationship="serdbModel.FK__notificat__autho__46E78A0C" FromRole="teacher" ToRole="notification" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_lecture_Tolecture_at">
           <End Role="lecture_at" Type="Self.lecture_at" Multiplicity="1">
@@ -163,41 +252,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="serdbEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="lectures" EntityType="Self.lecture" />
-          <EntitySet Name="lecture_at" EntityType="Self.lecture_at" />
-          <EntitySet Name="specializations" EntityType="Self.specialization" />
-          <AssociationSet Name="FK_lecture_Tolecture_at" Association="Self.FK_lecture_Tolecture_at">
-            <End Role="lecture_at" EntitySet="lecture_at" />
-            <End Role="lecture" EntitySet="lectures" />
-          </AssociationSet>
-          <AssociationSet Name="FK_lectures_ToSpecialization" Association="Self.FK_lectures_ToSpecialization">
-            <End Role="specialization" EntitySet="specializations" />
-            <End Role="lecture" EntitySet="lectures" />
-          </AssociationSet>
-          <EntitySet Name="students" EntityType="serdbModel.student" />
-          <AssociationSet Name="FK_student_ToSpecialization" Association="serdbModel.FK_student_ToSpecialization">
-            <End Role="specialization" EntitySet="specializations" />
-            <End Role="student" EntitySet="students" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="student">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="year" Type="Int32" Nullable="false" />
-          <Property Name="clas" Type="Int32" Nullable="false" />
-          <Property Name="specialization_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="specialization" Relationship="serdbModel.FK_student_ToSpecialization" FromRole="student" ToRole="specialization" />
-        </EntityType>
         <Association Name="FK_student_ToSpecialization">
-          <End Type="serdbModel.specialization" Role="specialization" Multiplicity="1">
+          <End Role="specialization" Type="Self.specialization" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="serdbModel.student" Role="student" Multiplicity="*" />
+          <End Role="student" Type="Self.student" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="specialization">
               <PropertyRef Name="Id" />
@@ -207,15 +266,91 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="serdbEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="lectures" EntityType="Self.lecture" />
+          <EntitySet Name="lecture_at" EntityType="Self.lecture_at" />
+          <EntitySet Name="specializations" EntityType="Self.specialization" />
+          <EntitySet Name="students" EntityType="Self.student" />
+          <EntitySet Name="teachers" EntityType="Self.teacher" />
+          <AssociationSet Name="FK_lecture_Tolecture_at" Association="Self.FK_lecture_Tolecture_at">
+            <End Role="lecture_at" EntitySet="lecture_at" />
+            <End Role="lecture" EntitySet="lectures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lectures_ToSpecialization" Association="Self.FK_lectures_ToSpecialization">
+            <End Role="specialization" EntitySet="specializations" />
+            <End Role="lecture" EntitySet="lectures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_student_ToSpecialization" Association="Self.FK_student_ToSpecialization">
+            <End Role="specialization" EntitySet="specializations" />
+            <End Role="student" EntitySet="students" />
+          </AssociationSet>
+          <EntitySet Name="dayinweeks" EntityType="serdbModel.dayinweek" />
+          <AssociationSet Name="FK__lecture__dayinwe__440B1D61" Association="serdbModel.FK__lecture__dayinwe__440B1D61">
+            <End Role="dayinweek" EntitySet="dayinweeks" />
+            <End Role="lecture" EntitySet="lectures" />
+          </AssociationSet>
+          <EntitySet Name="notifications" EntityType="serdbModel.notification" />
+          <AssociationSet Name="FK__notificat__autho__46E78A0C" Association="serdbModel.FK__notificat__autho__46E78A0C">
+            <End Role="teacher" EntitySet="teachers" />
+            <End Role="notification" EntitySet="notifications" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="dayinweek">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="dayname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="lectures" Relationship="serdbModel.FK__lecture__dayinwe__440B1D61" FromRole="dayinweek" ToRole="lecture" />
+        </EntityType>
+        <Association Name="FK__lecture__dayinwe__440B1D61">
+          <End Type="serdbModel.dayinweek" Role="dayinweek" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.lecture" Role="lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dayinweek">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="dayinweek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="author" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="teacher" Relationship="serdbModel.FK__notificat__autho__46E78A0C" FromRole="notification" ToRole="teacher" />
+        </EntityType>
+        <Association Name="FK__notificat__autho__46E78A0C">
+          <End Type="serdbModel.teacher" Role="teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.notification" Role="notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="serdbModelStoreContainer" CdmEntityContainer="serdbEntities1">
+        <EntityContainerMapping StorageEntityContainer="serdbModelStoreContainer" CdmEntityContainer="serdbEntities2">
           <EntitySetMapping Name="lectures">
             <EntityTypeMapping TypeName="serdbModel.lecture">
               <MappingFragment StoreEntitySet="lecture">
+                <ScalarProperty Name="dayinweek" ColumnName="dayinweek" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="year" ColumnName="year" />
@@ -244,11 +379,39 @@
           <EntitySetMapping Name="students">
             <EntityTypeMapping TypeName="serdbModel.student">
               <MappingFragment StoreEntitySet="student">
-                <ScalarProperty Name="specialization_id" ColumnName="specialization_id" />
-                <ScalarProperty Name="clas" ColumnName="clas" />
-                <ScalarProperty Name="year" ColumnName="year" />
-                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="clas" ColumnName="clas" />
+                <ScalarProperty Name="specialization_id" ColumnName="specialization_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teachers">
+            <EntityTypeMapping TypeName="serdbModel.teacher">
+              <MappingFragment StoreEntitySet="teacher">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dayinweeks">
+            <EntityTypeMapping TypeName="serdbModel.dayinweek">
+              <MappingFragment StoreEntitySet="dayinweek">
+                <ScalarProperty Name="dayname" ColumnName="dayname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="serdbModel.notification">
+              <MappingFragment StoreEntitySet="notification">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="author" ColumnName="author" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

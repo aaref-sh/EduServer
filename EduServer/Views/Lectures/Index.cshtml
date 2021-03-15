@@ -26,6 +26,9 @@
         <th>
             @Html.DisplayNameFor(model => model.specialization.name)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dayinweek1.dayname)
+        </th>
         <th></th>
     </tr>
 
@@ -45,6 +48,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.specialization.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dayinweek1.dayname)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

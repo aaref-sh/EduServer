@@ -12,7 +12,7 @@ namespace EduServer.Controllers
 {
     public class StudentsController : Controller
     {
-        private serdbEntities1 db = new serdbEntities1();
+        private serdbEntities2 db = new serdbEntities2();
 
         // GET: /Students/
         public ActionResult Index()
