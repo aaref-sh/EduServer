@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.IO;
+using System.Web;
 
 namespace EduServer.Controllers
 {
@@ -16,6 +18,21 @@ namespace EduServer.Controllers
         {
             return new string[] { "value1", "value2" };
         }
+
+        [HttpPost]
+        public string upload()
+        {
+            var file = HttpContext.Current.Request.Files.Count > 0 ?
+                       HttpContext.Current.Request.Files[0] : null;
+            if (file != null && file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(HttpContext.Current.Server.MapPath("~/docs"),fileName);
+                file.SaveAs(path);
+            }
+            return file != null ? file.FileName + " OK" : null; 
+        }
+
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
@@ -45,15 +62,17 @@ namespace EduServer.Controllers
             if(tl.Count==0)return 0;
             return tl.First().Id;
         }
-
+        
+        [HttpGet]
+        public void delete(int id)
+        {
+            db.notifications.Remove((from x in db.notifications where x.Id == id select x).First());
+            db.SaveChanges();
+        }
         // PUT api/values/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
-        }
     }
 }

@@ -14,5 +14,9 @@ namespace EduServer.Controllers
 
             return View();
         }
+        public FilePathResult Download()
+        {
+            return File(Server.MapPath("~/docs/a.png"), "multipart/form-data", "a.png");
+        }
     }
 }
