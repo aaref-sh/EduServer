@@ -32,5 +32,6 @@ namespace EduServer.Models
         public DbSet<teacher> teachers { get; set; }
         public DbSet<dayinweek> dayinweeks { get; set; }
         public DbSet<notification> notifications { get; set; }
+        public DbSet<doc> docs { get; set; }
     }
 }

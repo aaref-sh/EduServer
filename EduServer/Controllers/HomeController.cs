@@ -1,5 +1,7 @@
-﻿using System;
+﻿using EduServer.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,15 +10,18 @@ namespace EduServer.Controllers
 {
     public class HomeController : Controller
     {
+        serdbEntities2 db = new serdbEntities2();
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
 
             return View();
         }
-        public FilePathResult Download()
+        public FilePathResult Download(int id)
         {
-            return File(Server.MapPath("~/docs/a.png"), "multipart/form-data", "a.png");
+            doc d = (from x in db.docs where x.id == id select x).First();
+            return File(d.path, "multipart/form-data", d.path.Split('/').Last());
+           
         }
     }
 }

@@ -17,6 +17,8 @@
         <AssociationConnector Association="serdbModel.FK__lecture__dayinwe__440B1D61" />
         <EntityTypeShape EntityType="serdbModel.notification" Width="1.5" PointX="8" PointY="1.125" />
         <AssociationConnector Association="serdbModel.FK__notificat__autho__46E78A0C" />
+        <EntityTypeShape EntityType="serdbModel.doc" Width="1.5" PointX="8" PointY="4.5" />
+        <AssociationConnector Association="serdbModel.FK_docs_teacher" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

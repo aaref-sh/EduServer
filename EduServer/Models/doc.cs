@@ -12,19 +12,12 @@ namespace EduServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class teacher
+    public partial class doc
     {
-        public teacher()
-        {
-            this.notifications = new HashSet<notification>();
-            this.docs = new HashSet<doc>();
-        }
+        public int id { get; set; }
+        public string path { get; set; }
+        public int owner { get; set; }
     
-        public int Id { get; set; }
-        public string name { get; set; }
-        public string password { get; set; }
-    
-        public virtual ICollection<notification> notifications { get; set; }
-        public virtual ICollection<doc> docs { get; set; }
+        public virtual teacher teacher { get; set; }
     }
 }

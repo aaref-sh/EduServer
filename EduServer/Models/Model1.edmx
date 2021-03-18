@@ -12,6 +12,14 @@
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="dayname" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="docs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="path" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="owner" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="lecture">
           <Key>
             <PropertyRef Name="Id" />
@@ -81,17 +89,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__notificat__autho__46E78A0C">
+        <Association Name="FK_docs_teacher">
           <End Role="teacher" Type="Self.teacher" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <End Role="docs" Type="Self.docs" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="teacher">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="notification">
-              <PropertyRef Name="author" />
+            <Dependent Role="docs">
+              <PropertyRef Name="owner" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -123,6 +131,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_notification_teacher">
+          <End Role="teacher" Type="Self.teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_student_ToSpecialization">
           <End Role="specialization" Type="Self.specialization" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -139,6 +161,7 @@
         </Association>
         <EntityContainer Name="serdbModelStoreContainer">
           <EntitySet Name="dayinweek" EntityType="Self.dayinweek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="docs" EntityType="Self.docs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lecture" EntityType="Self.lecture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lecture_at" EntityType="Self.lecture_at" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
@@ -149,9 +172,9 @@
             <End Role="dayinweek" EntitySet="dayinweek" />
             <End Role="lecture" EntitySet="lecture" />
           </AssociationSet>
-          <AssociationSet Name="FK__notificat__autho__46E78A0C" Association="Self.FK__notificat__autho__46E78A0C">
+          <AssociationSet Name="FK_docs_teacher" Association="Self.FK_docs_teacher">
             <End Role="teacher" EntitySet="teacher" />
-            <End Role="notification" EntitySet="notification" />
+            <End Role="docs" EntitySet="docs" />
           </AssociationSet>
           <AssociationSet Name="FK_lecture_Tolecture_at" Association="Self.FK_lecture_Tolecture_at">
             <End Role="lecture_at" EntitySet="lecture_at" />
@@ -160,6 +183,10 @@
           <AssociationSet Name="FK_lectures_ToSpecialization" Association="Self.FK_lectures_ToSpecialization">
             <End Role="specialization" EntitySet="specialization" />
             <End Role="lecture" EntitySet="lecture" />
+          </AssociationSet>
+          <AssociationSet Name="FK_notification_teacher" Association="Self.FK_notification_teacher">
+            <End Role="teacher" EntitySet="teacher" />
+            <End Role="notification" EntitySet="notification" />
           </AssociationSet>
           <AssociationSet Name="FK_student_ToSpecialization" Association="Self.FK_student_ToSpecialization">
             <End Role="specialization" EntitySet="specialization" />
@@ -223,6 +250,7 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="notifications" Relationship="serdbModel.FK__notificat__autho__46E78A0C" FromRole="teacher" ToRole="notification" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="docs" Relationship="serdbModel.FK_docs_teacher" FromRole="teacher" ToRole="doc" />
         </EntityType>
         <Association Name="FK_lecture_Tolecture_at">
           <End Role="lecture_at" Type="Self.lecture_at" Multiplicity="1">
@@ -294,6 +322,11 @@
             <End Role="teacher" EntitySet="teachers" />
             <End Role="notification" EntitySet="notifications" />
           </AssociationSet>
+          <EntitySet Name="docs" EntityType="serdbModel.doc" />
+          <AssociationSet Name="FK_docs_teacher" Association="serdbModel.FK_docs_teacher">
+            <End Role="teacher" EntitySet="teachers" />
+            <End Role="doc" EntitySet="docs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="dayinweek">
           <Key>
@@ -338,6 +371,29 @@
             </Principal>
             <Dependent Role="notification">
               <PropertyRef Name="author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="doc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="path" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="owner" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="teacher" Relationship="serdbModel.FK_docs_teacher" FromRole="doc" ToRole="teacher" />
+        </EntityType>
+        <Association Name="FK_docs_teacher">
+          <End Type="serdbModel.teacher" Role="teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.doc" Role="doc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="doc">
+              <PropertyRef Name="owner" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -413,6 +469,15 @@
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="author" ColumnName="author" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="docs">
+            <EntityTypeMapping TypeName="serdbModel.doc">
+              <MappingFragment StoreEntitySet="docs">
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
