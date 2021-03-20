@@ -48,12 +48,35 @@
           <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="requester" Type="int" Nullable="false" />
+          <Property Name="request_type" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="request_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="specialization">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="student">
           <Key>
@@ -145,6 +168,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_request_request_type">
+          <End Role="request_type" Type="Self.request_type" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="request_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="request_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_status">
+          <End Role="status" Type="Self.status" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_student">
+          <End Role="student" Type="Self.student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="requester" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_student_ToSpecialization">
           <End Role="specialization" Type="Self.specialization" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -165,7 +230,10 @@
           <EntitySet Name="lecture" EntityType="Self.lecture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lecture_at" EntityType="Self.lecture_at" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="request" EntityType="Self.request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="request_type" EntityType="Self.request_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="specialization" EntityType="Self.specialization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="student" EntityType="Self.student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="teacher" EntityType="Self.teacher" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__lecture__dayinwe__440B1D61" Association="Self.FK__lecture__dayinwe__440B1D61">
@@ -187,6 +255,18 @@
           <AssociationSet Name="FK_notification_teacher" Association="Self.FK_notification_teacher">
             <End Role="teacher" EntitySet="teacher" />
             <End Role="notification" EntitySet="notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_request_type" Association="Self.FK_request_request_type">
+            <End Role="request_type" EntitySet="request_type" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_status" Association="Self.FK_request_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_student" Association="Self.FK_request_student">
+            <End Role="student" EntitySet="student" />
+            <End Role="request" EntitySet="request" />
           </AssociationSet>
           <AssociationSet Name="FK_student_ToSpecialization" Association="Self.FK_student_ToSpecialization">
             <End Role="specialization" EntitySet="specialization" />
@@ -241,6 +321,7 @@
           <Property Name="specialization_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="specialization" Relationship="Self.FK_student_ToSpecialization" FromRole="student" ToRole="specialization" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="requests" Relationship="serdbModel.FK_request_student" FromRole="student" ToRole="request" />
         </EntityType>
         <EntityType Name="teacher">
           <Key>
@@ -327,6 +408,21 @@
             <End Role="teacher" EntitySet="teachers" />
             <End Role="doc" EntitySet="docs" />
           </AssociationSet>
+          <EntitySet Name="requests" EntityType="serdbModel.request" />
+          <EntitySet Name="request_type" EntityType="serdbModel.request_type" />
+          <AssociationSet Name="FK_request_request_type" Association="serdbModel.FK_request_request_type">
+            <End Role="request_type" EntitySet="request_type" />
+            <End Role="request" EntitySet="requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_student" Association="serdbModel.FK_request_student">
+            <End Role="student" EntitySet="students" />
+            <End Role="request" EntitySet="requests" />
+          </AssociationSet>
+          <EntitySet Name="status" EntityType="serdbModel.status" />
+          <AssociationSet Name="FK_request_status" Association="serdbModel.FK_request_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="request" EntitySet="requests" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="dayinweek">
           <Key>
@@ -394,6 +490,76 @@
             </Principal>
             <Dependent Role="doc">
               <PropertyRef Name="owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="requester" Type="Int32" Nullable="false" />
+          <Property Name="request_type" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="request_type1" Relationship="serdbModel.FK_request_request_type" FromRole="request" ToRole="request_type" />
+          <NavigationProperty Name="student" Relationship="serdbModel.FK_request_student" FromRole="request" ToRole="student" />
+          <NavigationProperty Name="status1" Relationship="serdbModel.FK_request_status" FromRole="request" ToRole="status" />
+        </EntityType>
+        <EntityType Name="request_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="requests" Relationship="serdbModel.FK_request_request_type" FromRole="request_type" ToRole="request" />
+        </EntityType>
+        <Association Name="FK_request_request_type">
+          <End Type="serdbModel.request_type" Role="request_type" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.request" Role="request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="request_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="request_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_student">
+          <End Type="serdbModel.student" Role="student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.request" Role="request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="requester" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="requests" Relationship="serdbModel.FK_request_status" FromRole="status" ToRole="request" />
+        </EntityType>
+        <Association Name="FK_request_status">
+          <End Type="serdbModel.status" Role="status" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.request" Role="request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="status" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -477,6 +643,32 @@
               <MappingFragment StoreEntitySet="docs">
                 <ScalarProperty Name="owner" ColumnName="owner" />
                 <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requests">
+            <EntityTypeMapping TypeName="serdbModel.request">
+              <MappingFragment StoreEntitySet="request">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="request_type" ColumnName="request_type" />
+                <ScalarProperty Name="requester" ColumnName="requester" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="request_type">
+            <EntityTypeMapping TypeName="serdbModel.request_type">
+              <MappingFragment StoreEntitySet="request_type">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status">
+            <EntityTypeMapping TypeName="serdbModel.status">
+              <MappingFragment StoreEntitySet="status">
+                <ScalarProperty Name="status1" ColumnName="status" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -12,22 +12,16 @@ namespace EduServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class student
+    public partial class request_type
     {
-        public student()
+        public request_type()
         {
             this.requests = new HashSet<request>();
         }
     
-        public int Id { get; set; }
-        public string firstname { get; set; }
-        public string lastname { get; set; }
-        public int year { get; set; }
-        public int clas { get; set; }
-        public int specialization_id { get; set; }
-        public string password { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
     
-        public virtual specialization specialization { get; set; }
         public virtual ICollection<request> requests { get; set; }
     }
 }

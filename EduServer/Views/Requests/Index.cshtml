@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EduServer.Models.request>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.request_type1.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.student.firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status1.status1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.request_type1.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.student.firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status1.status1)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

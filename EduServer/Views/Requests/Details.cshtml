@@ -1,0 +1,42 @@
+﻿@model EduServer.Models.request
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>request</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.request_type1.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.request_type1.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.student.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.student.firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status1.status1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status1.status1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

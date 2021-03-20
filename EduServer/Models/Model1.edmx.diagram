@@ -5,20 +5,26 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3a0fe75a6d3944ae9ef45a88527dc0df" Name="Diagram1">
-        <EntityTypeShape EntityType="serdbModel.lecture" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="serdbModel.lecture_at" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="serdbModel.specialization" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="serdbModel.student" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="serdbModel.teacher" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="serdbModel.lecture" Width="1.5" PointX="5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="serdbModel.lecture_at" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="serdbModel.specialization" Width="1.5" PointX="0.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="serdbModel.student" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="serdbModel.teacher" Width="1.5" PointX="9.25" PointY="0.5" IsExpanded="true" />
         <AssociationConnector Association="serdbModel.FK_lecture_Tolecture_at" ManuallyRouted="false" />
         <AssociationConnector Association="serdbModel.FK_lectures_ToSpecialization" ManuallyRouted="false" />
         <AssociationConnector Association="serdbModel.FK_student_ToSpecialization" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="serdbModel.dayinweek" Width="1.5" PointX="5.375" PointY="3.875" />
+        <EntityTypeShape EntityType="serdbModel.dayinweek" Width="1.5" PointX="7.125" PointY="3" />
         <AssociationConnector Association="serdbModel.FK__lecture__dayinwe__440B1D61" />
-        <EntityTypeShape EntityType="serdbModel.notification" Width="1.5" PointX="8" PointY="1.125" />
+        <EntityTypeShape EntityType="serdbModel.notification" Width="1.5" PointX="7.125" PointY="0.5" />
         <AssociationConnector Association="serdbModel.FK__notificat__autho__46E78A0C" />
-        <EntityTypeShape EntityType="serdbModel.doc" Width="1.5" PointX="8" PointY="4.5" />
+        <EntityTypeShape EntityType="serdbModel.doc" Width="1.5" PointX="9.25" PointY="3.125" />
         <AssociationConnector Association="serdbModel.FK_docs_teacher" />
+        <EntityTypeShape EntityType="serdbModel.request" Width="1.5" PointX="5" PointY="3.625" />
+        <EntityTypeShape EntityType="serdbModel.request_type" Width="1.5" PointX="2.875" PointY="2.375" />
+        <AssociationConnector Association="serdbModel.FK_request_request_type" />
+        <AssociationConnector Association="serdbModel.FK_request_student" />
+        <EntityTypeShape EntityType="serdbModel.status" Width="1.5" PointX="2.875" PointY="4.125" />
+        <AssociationConnector Association="serdbModel.FK_request_status" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

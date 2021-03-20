@@ -33,5 +33,8 @@ namespace EduServer.Models
         public DbSet<dayinweek> dayinweeks { get; set; }
         public DbSet<notification> notifications { get; set; }
         public DbSet<doc> docs { get; set; }
+        public DbSet<request> requests { get; set; }
+        public DbSet<request_type> request_type { get; set; }
+        public DbSet<status> status { get; set; }
     }
 }

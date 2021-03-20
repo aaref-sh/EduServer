@@ -26,6 +26,15 @@ namespace EduServer.Controllers
             else dl = db.docs.ToList();
             return dl;
         }
+        [HttpPost]
+        public String addnotification(notification n)
+        {
+            db.notifications.Add(n);
+            db.SaveChanges();
+            return "done";
+        }
+
+
         [HttpGet]
         public string getpath()
         {
@@ -59,6 +68,12 @@ namespace EduServer.Controllers
             }
             return file != null ? file.FileName + " OK" : null; 
         }
+        [HttpPost]
+        public void addrequest(request r)
+        {
+            db.requests.Add(r);
+            db.SaveChanges();
+        }
 
         // POST api/values
         [HttpPost]
@@ -76,6 +91,13 @@ namespace EduServer.Controllers
         {
             return db.notifications.ToList();
         } 
+        [HttpPost]
+        public List<request> requestlist(student s)
+        {
+            return (from x in db.requests where x.requester == s.Id select x).ToList();
+        }
+
+
         [HttpPost]
         public bool signin(student s){
             List<student> sl = (from x in db.students where x.Id == s.Id && s.password == x.password select x).ToList();
