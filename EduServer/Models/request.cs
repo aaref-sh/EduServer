@@ -20,7 +20,7 @@ namespace EduServer.Models
         public int status { get; set; }
     
         public virtual request_type request_type1 { get; set; }
-        public virtual student student { get; set; }
         public virtual status status1 { get; set; }
+        public virtual student student { get; set; }
     }
 }

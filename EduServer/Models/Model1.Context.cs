@@ -25,16 +25,17 @@ namespace EduServer.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<dayinweek> dayinweeks { get; set; }
+        public DbSet<doc> docs { get; set; }
+        public DbSet<hall> halls { get; set; }
         public DbSet<lecture> lectures { get; set; }
         public DbSet<lecture_at> lecture_at { get; set; }
-        public DbSet<specialization> specializations { get; set; }
-        public DbSet<student> students { get; set; }
-        public DbSet<teacher> teachers { get; set; }
-        public DbSet<dayinweek> dayinweeks { get; set; }
         public DbSet<notification> notifications { get; set; }
-        public DbSet<doc> docs { get; set; }
         public DbSet<request> requests { get; set; }
         public DbSet<request_type> request_type { get; set; }
+        public DbSet<specialization> specializations { get; set; }
         public DbSet<status> status { get; set; }
+        public DbSet<student> students { get; set; }
+        public DbSet<teacher> teachers { get; set; }
     }
 }

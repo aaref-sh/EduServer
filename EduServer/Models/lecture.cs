@@ -20,10 +20,12 @@ namespace EduServer.Models
         public int specialization_id { get; set; }
         public int clas { get; set; }
         public int lecture_at_id { get; set; }
-        public Nullable<int> dayinweek { get; set; }
+        public int dayinweek { get; set; }
+        public int hall_id { get; set; }
     
+        public virtual dayinweek dayinweek1 { get; set; }
+        public virtual hall hall { get; set; }
         public virtual lecture_at lecture_at { get; set; }
         public virtual specialization specialization { get; set; }
-        public virtual dayinweek dayinweek1 { get; set; }
     }
 }

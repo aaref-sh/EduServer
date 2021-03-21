@@ -19,11 +19,11 @@ namespace EduServer.Controllers
             return new string[] { "value1", "value2" };
         }
         [HttpGet]
-        public List<doc> GetDocList(int? id)
+        public List<doc> GetDocList(int id)
         {
             List<doc> dl ;
-            if (id != null) dl = (from x in db.docs where id == x.owner select x).ToList();
-            else dl = db.docs.ToList();
+            if (id == 0) dl = db.docs.ToList();
+            else dl = (from x in db.docs where id == x.owner select x).ToList();
             return dl;
         }
         [HttpPost]
@@ -34,12 +34,6 @@ namespace EduServer.Controllers
             return "done";
         }
 
-
-        [HttpGet]
-        public string getpath()
-        {
-            return HttpContext.Current.Server.MapPath("~/docs/");
-        }
         [HttpGet]
         public void deletedoc(int id)
         {
@@ -69,17 +63,13 @@ namespace EduServer.Controllers
             return file != null ? file.FileName + " OK" : null; 
         }
         [HttpPost]
-        public void addrequest(request r)
+        public void addrequest(request r,string s)
         {
+            r.request_type = (from x in db.request_type where x.name == s select x).First().id;
             db.requests.Add(r);
             db.SaveChanges();
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
         [HttpGet]
         public List<lecture> DaysTable(int id)
         {
@@ -96,8 +86,6 @@ namespace EduServer.Controllers
         {
             return (from x in db.requests where x.requester == s.Id select x).ToList();
         }
-
-
         [HttpPost]
         public bool signin(student s){
             List<student> sl = (from x in db.students where x.Id == s.Id && s.password == x.password select x).ToList();

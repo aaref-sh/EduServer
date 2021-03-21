@@ -16,15 +16,15 @@ namespace EduServer.Models
     {
         public teacher()
         {
-            this.notifications = new HashSet<notification>();
             this.docs = new HashSet<doc>();
+            this.notifications = new HashSet<notification>();
         }
     
         public int Id { get; set; }
         public string name { get; set; }
         public string password { get; set; }
     
-        public virtual ICollection<notification> notifications { get; set; }
         public virtual ICollection<doc> docs { get; set; }
+        public virtual ICollection<notification> notifications { get; set; }
     }
 }

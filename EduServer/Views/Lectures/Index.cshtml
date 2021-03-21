@@ -21,13 +21,16 @@
             @Html.DisplayNameFor(model => model.clas)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.dayinweek1.dayname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hall.name)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.lecture_at.time_at)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.specialization.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dayinweek1.dayname)
         </th>
         <th></th>
     </tr>
@@ -44,13 +47,16 @@
             @Html.DisplayFor(modelItem => item.clas)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.dayinweek1.dayname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hall.name)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.lecture_at.time_at)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.specialization.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dayinweek1.dayname)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

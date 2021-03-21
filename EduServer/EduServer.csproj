@@ -140,6 +140,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\DocsController.cs" />
+    <Compile Include="Controllers\HallsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LecturesController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
@@ -158,6 +159,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\doc.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\hall.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\lecture.cs">
@@ -274,11 +278,6 @@
     <Content Include="Views\Specializations\Details.cshtml" />
     <Content Include="Views\Specializations\Edit.cshtml" />
     <Content Include="Views\Specializations\Index.cshtml" />
-    <Content Include="Views\Lectures\Create.cshtml" />
-    <Content Include="Views\Lectures\Delete.cshtml" />
-    <Content Include="Views\Lectures\Details.cshtml" />
-    <Content Include="Views\Lectures\Edit.cshtml" />
-    <Content Include="Views\Lectures\Index.cshtml" />
     <Content Include="Views\Notifications\Create.cshtml" />
     <Content Include="Views\Notifications\Delete.cshtml" />
     <Content Include="Views\Notifications\Details.cshtml" />
@@ -316,6 +315,16 @@
     <Content Include="Views\Request_types\Details.cshtml" />
     <Content Include="Views\Request_types\Edit.cshtml" />
     <Content Include="Views\Request_types\Index.cshtml" />
+    <Content Include="Views\Lectures\Create.cshtml" />
+    <Content Include="Views\Lectures\Delete.cshtml" />
+    <Content Include="Views\Lectures\Details.cshtml" />
+    <Content Include="Views\Lectures\Edit.cshtml" />
+    <Content Include="Views\Lectures\Index.cshtml" />
+    <Content Include="Views\Halls\Create.cshtml" />
+    <Content Include="Views\Halls\Delete.cshtml" />
+    <Content Include="Views\Halls\Details.cshtml" />
+    <Content Include="Views\Halls\Edit.cshtml" />
+    <Content Include="Views\Halls\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
