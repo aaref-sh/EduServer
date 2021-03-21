@@ -11,6 +11,7 @@ namespace EduServer.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class request_type
     {
@@ -18,8 +19,9 @@ namespace EduServer.Models
         {
             this.requests = new HashSet<request>();
         }
-    
+
         public int id { get; set; }
+        [DisplayName("‰Ê⁄ «·ÿ·»")]
         public string name { get; set; }
     
         public virtual ICollection<request> requests { get; set; }

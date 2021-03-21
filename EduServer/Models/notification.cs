@@ -11,12 +11,16 @@ namespace EduServer.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class notification
     {
         public int Id { get; set; }
+        [DisplayName("«·‰«‘—")]
         public int author { get; set; }
+        [DisplayName("«·⁄‰Ê«‰")]
         public string title { get; set; }
+        [DisplayName("«·‘—Õ")]
         public string description { get; set; }
     
         public virtual teacher teacher { get; set; }

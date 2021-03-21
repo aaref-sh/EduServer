@@ -35,7 +35,7 @@ namespace EduServer.Models
         public DbSet<request_type> request_type { get; set; }
         public DbSet<specialization> specializations { get; set; }
         public DbSet<status> status { get; set; }
-        public DbSet<student> students { get; set; }
         public DbSet<teacher> teachers { get; set; }
+        public DbSet<student> students { get; set; }
     }
 }

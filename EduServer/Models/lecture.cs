@@ -11,19 +11,27 @@ namespace EduServer.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class lecture
     {
         public int Id { get; set; }
+        [DisplayName("«·„«œ…")]
         public string name { get; set; }
+        [DisplayName("«·”‰…")]
         public int year { get; set; }
+        [DisplayName("«·«Œ ’«’")]
         public int specialization_id { get; set; }
+        [DisplayName("«·›∆…")]
         public int clas { get; set; }
+        [DisplayName("«·Êﬁ ")]
         public int lecture_at_id { get; set; }
+        [DisplayName("«·ÌÊ„")]
         public int dayinweek { get; set; }
         public int hall_id { get; set; }
     
         public virtual dayinweek dayinweek1 { get; set; }
+        [DisplayName("«·ﬁ«⁄…")]
         public virtual hall hall { get; set; }
         public virtual lecture_at lecture_at { get; set; }
         public virtual specialization specialization { get; set; }

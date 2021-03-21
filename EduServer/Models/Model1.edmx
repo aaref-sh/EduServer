@@ -91,8 +91,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fullname" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="year" Type="int" Nullable="false" />
           <Property Name="clas" Type="int" Nullable="false" />
           <Property Name="specialization_id" Type="int" Nullable="false" />
@@ -315,7 +314,6 @@
           <EntitySet Name="request_type" EntityType="serdbModel.request_type" />
           <EntitySet Name="specializations" EntityType="serdbModel.specialization" />
           <EntitySet Name="status" EntityType="serdbModel.status" />
-          <EntitySet Name="students" EntityType="serdbModel.student" />
           <EntitySet Name="teachers" EntityType="serdbModel.teacher" />
           <AssociationSet Name="FK__lecture__dayinwe__440B1D61" Association="serdbModel.FK__lecture__dayinwe__440B1D61">
             <End Role="dayinweek" EntitySet="dayinweeks" />
@@ -349,6 +347,7 @@
             <End Role="status" EntitySet="status" />
             <End Role="request" EntitySet="requests" />
           </AssociationSet>
+          <EntitySet Name="students" EntityType="serdbModel.student" />
           <AssociationSet Name="FK_request_student" Association="serdbModel.FK_request_student">
             <End Role="student" EntitySet="students" />
             <End Role="request" EntitySet="requests" />
@@ -357,7 +356,7 @@
             <End Role="specialization" EntitySet="specializations" />
             <End Role="student" EntitySet="students" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="dayinweek">
           <Key>
             <PropertyRef Name="id" />
@@ -454,20 +453,6 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="status1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="requests" Relationship="serdbModel.FK_request_status" FromRole="status" ToRole="request" />
-        </EntityType>
-        <EntityType Name="student">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="year" Type="Int32" Nullable="false" />
-          <Property Name="clas" Type="Int32" Nullable="false" />
-          <Property Name="specialization_id" Type="Int32" Nullable="false" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="requests" Relationship="serdbModel.FK_request_student" FromRole="student" ToRole="request" />
-          <NavigationProperty Name="specialization" Relationship="serdbModel.FK_student_ToSpecialization" FromRole="student" ToRole="specialization" />
         </EntityType>
         <EntityType Name="teacher">
           <Key>
@@ -591,6 +576,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="fullname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="clas" Type="Int32" Nullable="false" />
+          <Property Name="specialization_id" Type="Int32" Nullable="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="requests" Relationship="serdbModel.FK_request_student" FromRole="student" ToRole="request" />
+          <NavigationProperty Name="specialization" Relationship="serdbModel.FK_student_ToSpecialization" FromRole="student" ToRole="specialization" />
+        </EntityType>
         <Association Name="FK_request_student">
           <End Type="serdbModel.student" Role="student" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -716,6 +714,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="teachers">
+            <EntityTypeMapping TypeName="serdbModel.teacher">
+              <MappingFragment StoreEntitySet="teacher">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="students">
             <EntityTypeMapping TypeName="serdbModel.student">
               <MappingFragment StoreEntitySet="student">
@@ -723,17 +730,7 @@
                 <ScalarProperty Name="specialization_id" ColumnName="specialization_id" />
                 <ScalarProperty Name="clas" ColumnName="clas" />
                 <ScalarProperty Name="year" ColumnName="year" />
-                <ScalarProperty Name="lastname" ColumnName="lastname" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="teachers">
-            <EntityTypeMapping TypeName="serdbModel.teacher">
-              <MappingFragment StoreEntitySet="teacher">
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

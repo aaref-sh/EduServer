@@ -11,6 +11,7 @@ namespace EduServer.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class student
     {
@@ -18,13 +19,17 @@ namespace EduServer.Models
         {
             this.requests = new HashSet<request>();
         }
-    
+
         public int Id { get; set; }
-        public string firstname { get; set; }
-        public string lastname { get; set; }
+        [DisplayName("«·«”„ «·ﬂ«„·")]
+        public string fullname { get; set; }
+        [DisplayName("«·”‰…")]
         public int year { get; set; }
+        [DisplayName("«·›∆…")]
         public int clas { get; set; }
+        [DisplayName("«·«Œ ’«’")]
         public int specialization_id { get; set; }
+        [DisplayName("ﬂ·„… «·„—Ê—")]
         public string password { get; set; }
     
         public virtual ICollection<request> requests { get; set; }

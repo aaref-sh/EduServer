@@ -15,7 +15,6 @@
         <EntityTypeShape EntityType="serdbModel.request_type" Width="1.5" PointX="10.25" PointY="4.875" />
         <EntityTypeShape EntityType="serdbModel.specialization" Width="1.5" PointX="3.625" PointY="4.5" />
         <EntityTypeShape EntityType="serdbModel.status" Width="1.5" PointX="5.625" PointY="1" />
-        <EntityTypeShape EntityType="serdbModel.student" Width="1.5" PointX="5.75" PointY="3.25" />
         <EntityTypeShape EntityType="serdbModel.teacher" Width="1.5" PointX="10.125" PointY="0.5" />
         <AssociationConnector Association="serdbModel.FK__lecture__dayinwe__440B1D61" />
         <AssociationConnector Association="serdbModel.FK_docs_teacher" />
@@ -25,9 +24,10 @@
         <AssociationConnector Association="serdbModel.FK_notification_teacher" />
         <AssociationConnector Association="serdbModel.FK_request_request_type" />
         <AssociationConnector Association="serdbModel.FK_request_status" />
+        <EntityTypeShape EntityType="serdbModel.student" Width="1.5" PointX="5.875" PointY="3.75" />
         <AssociationConnector Association="serdbModel.FK_request_student" />
         <AssociationConnector Association="serdbModel.FK_student_ToSpecialization" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

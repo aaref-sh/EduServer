@@ -11,6 +11,7 @@ namespace EduServer.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class specialization
     {
@@ -19,8 +20,9 @@ namespace EduServer.Models
             this.lectures = new HashSet<lecture>();
             this.students = new HashSet<student>();
         }
-    
+
         public int Id { get; set; }
+        [DisplayName("«·«Œ ’«’")]
         public string name { get; set; }
     
         public virtual ICollection<lecture> lectures { get; set; }

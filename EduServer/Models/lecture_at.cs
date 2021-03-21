@@ -11,6 +11,7 @@ namespace EduServer.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class lecture_at
     {
@@ -18,8 +19,9 @@ namespace EduServer.Models
         {
             this.lectures = new HashSet<lecture>();
         }
-    
+
         public int Id { get; set; }
+        [DisplayName("«·Êﬁ ")]
         public string time_at { get; set; }
     
         public virtual ICollection<lecture> lectures { get; set; }

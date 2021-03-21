@@ -11,6 +11,7 @@ namespace EduServer.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class teacher
     {
@@ -19,9 +20,11 @@ namespace EduServer.Models
             this.docs = new HashSet<doc>();
             this.notifications = new HashSet<notification>();
         }
-    
+
         public int Id { get; set; }
+        [DisplayName("«·«”„")]
         public string name { get; set; }
+        [DisplayName("ﬂ·„… «·„—Ê—")]
         public string password { get; set; }
     
         public virtual ICollection<doc> docs { get; set; }

@@ -11,12 +11,16 @@ namespace EduServer.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class request
     {
         public int id { get; set; }
+        [DisplayName("«·ÿ«·»")]
         public int requester { get; set; }
+        [DisplayName("‰Ê⁄ «·ÿ·»")]
         public int request_type { get; set; }
+        [DisplayName("«·Õ«·…")]
         public int status { get; set; }
     
         public virtual request_type request_type1 { get; set; }

@@ -11,6 +11,7 @@ namespace EduServer.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class dayinweek
     {
@@ -20,6 +21,7 @@ namespace EduServer.Models
         }
     
         public int id { get; set; }
+        [DisplayName("Çáíæã")]
         public string dayname { get; set; }
     
         public virtual ICollection<lecture> lectures { get; set; }
