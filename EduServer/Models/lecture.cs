@@ -28,6 +28,7 @@ namespace EduServer.Models
         public int lecture_at_id { get; set; }
         [DisplayName("Çáíæã")]
         public int dayinweek { get; set; }
+        [DisplayName("ÇáŞÇÚÉ")]
         public int hall_id { get; set; }
     
         public virtual dayinweek dayinweek1 { get; set; }

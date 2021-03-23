@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<EduServer.Models.notification>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "الإعلانات";
 }
 
-<h2>Index</h2>
+<h2>الإعلانات</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("إنشاء جديد", "Create")
 </p>
 <table class="table">
     <tr>
@@ -35,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.teacher.name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("تعديل", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("تفاصيل", "Details", new { id=item.Id }) |
+            @Html.ActionLink("حذف", "Delete", new { id = item.Id }, new {@class="btn btn-danger btn-sm" })
         </td>
     </tr>
 }

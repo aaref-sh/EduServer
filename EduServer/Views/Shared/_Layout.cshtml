@@ -1,41 +1,107 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon" href="img/favicon.png" type="image/png" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/flaticon.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/themify-icons.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/vendors/owl-carousel/owl.carousel.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/vendors/nice-select/css/nice-select.css")" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/style.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/my.css")" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
 
+<body>
+        <header class="header_area white-header">
+            <div class="main_menu" dir="rtl">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="container" style="margin-top:10px;margin-bottom:10px">
+                        <a class="navbar-brand" href="index.aspx">
+                            <img class="logo-2" src="@Url.Content("~/img/logo2.png")" alt="" />
+                        ></a>
+                        <button class="navbar-toggler"
+                                type="button"
+                                data-toggle="collapse"
+                                data-target="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="collapse navbar-collapse offset"
+                             id="navbarSupportedContent">
+                            <ul class="nav navbar-nav menu_nav ml-auto">
+                                <li class="nav-item">@Html.ActionLink("الرئيسية", "Index", "Home", null, new { @class = "btn btn-outline-primary" })       </li>
+                                <li class="nav-item">@Html.ActionLink("المدرسون", "Index", "Teachers", null, new { @class = "btn btn-outline-info" }) </li>
+                                <li class="nav-item">@Html.ActionLink("الطلاب", "Index", "Students", null, new { @class = "btn btn-outline-info" })    </li>
+                                <li class="nav-item">@Html.ActionLink("الطلبات", "Index", "requests", null, new { @class = "btn btn-outline-info" })  </li>
+                                <li class="nav-item">@Html.ActionLink("القاعات", "Index", "Halls", null, new { @class = "btn btn-outline-info" })     </li>
+                                <li class="nav-item">@Html.ActionLink("المحاضرات", "Index", "Lectures", null, new { @class = "btn btn-outline-info" })</li>
+                                <li class="nav-item">@Html.ActionLink("الإعلانات", "Index", "Notifications", null, new { @class = "btn btn-outline-info" })</li>
+                                <li></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <section class="banner_area">
+            <div class="banner_inner d-flex align-items-center">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="banner_content text-center">
+                                <h2>@ViewBag.Title</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="course_details_area section_gap text-right" dir="rtl" >
+            <div class="container">
+                <div class="container body-content">
+                    @RenderBody()
+                    <hr />
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="container text-center">
+                <div class="row" style="color: white">
+                    <img src="@Url.Content("~/img/logo2.png")" style="margin-top: 20px;margin-bottom: 20px" />
+                </div>
+            </div>
+        </footer>
+        
+    <script src="@Url.Content("~/Scripts/jquery-3.2.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/popper.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/vendors/nice-select/js/jquery.nice-select.min.js")"></script>
+    <script src="@Url.Content("~/vendors/owl-carousel/owl.carousel.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/owl-carousel-thumb.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.ajaxchimp.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/mail-script.js")"></script>
+   
+    <script src="@Url.Content("~/Scripts/gmaps.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/theme.js")"></script>
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>

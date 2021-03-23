@@ -1,0 +1,9 @@
+footer{
+    background-image: url("../img/home/book-footer.jpg");
+    background-repeat: no-repeat;
+    width: 100%;
+    background-size: cover;
+}
+.full_width{
+    width: 100%;
+}

@@ -119,6 +119,10 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="docs\" />
+    <Folder Include="img\blog\cat-post\" />
+    <Folder Include="img\blog\causes\" />
+    <Folder Include="img\blog\main-blog\" />
+    <Folder Include="img\blog\popular-post\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -213,9 +217,36 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\breadcrumb.css" />
+    <Content Include="Content\flaticon.css" />
+    <Content Include="Content\my.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\themify-icons.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\background.jpg" />
+    <Content Include="img\banner\banner.jpg" />
+    <Content Include="img\banner\home-banner.jpg" />
+    <Content Include="img\blog\student.png" />
+    <Content Include="img\favicon.png" />
+    <Content Include="img\features\f1.png" />
+    <Content Include="img\features\f2.png" />
+    <Content Include="img\features\f3.png" />
+    <Content Include="img\home\book-footer.jpg" />
+    <Content Include="img\home\books.jpg" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\logo2.png" />
+    <Content Include="img\next.png" />
+    <Content Include="img\prev.png" />
+    <Content Include="img\testimonials\t1.jpg" />
+    <Content Include="img\testimonials\t2.jpg" />
+    <Content Include="img\testimonials\t3.jpg" />
+    <Content Include="img\testimonials\t4.jpg" />
+    <Content Include="img\trainer\t1.jpg" />
+    <Content Include="img\trainer\t2.jpg" />
+    <Content Include="img\trainer\t3.jpg" />
+    <Content Include="img\trainer\t4.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -246,13 +277,48 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\.DS_Store" />
+    <Content Include="img\.DS_Store" />
+    <Content Include="img\banner\.DS_Store" />
+    <Content Include="img\features\.DS_Store" />
+    <Content Include="img\testimonials\.DS_Store" />
+    <Content Include="img\trainer\.DS_Store" />
     <None Include="Properties\PublishProfiles\myprofile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\contact.js" />
+    <Content Include="Scripts\gmaps.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery.ajaxchimp.min.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\mail-script.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\my.js" />
+    <Content Include="Scripts\owl-carousel-thumb.min.js" />
+    <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\stellar.js" />
+    <Content Include="Scripts\theme.js" />
+    <Content Include="vendors\bootstrap-datepicker\bootstrap-datetimepicker.min.css" />
+    <Content Include="vendors\bootstrap-datepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="vendors\bootstrap-datepicker\bootstrap-select.css" />
+    <Content Include="vendors\bootstrap-datepicker\bootstrap-select.js" />
+    <Content Include="vendors\flipclock\timer.js" />
+    <Content Include="vendors\jquery-ui\jquery-ui.css" />
+    <Content Include="vendors\jquery-ui\jquery-ui.js" />
+    <Content Include="vendors\nice-select\css\nice-select.css" />
+    <Content Include="vendors\nice-select\css\style.css" />
+    <Content Include="vendors\nice-select\js\jquery.nice-select.js" />
+    <Content Include="vendors\nice-select\js\jquery.nice-select.min.js" />
+    <Content Include="vendors\owl-carousel\assets\ajax-loader.gif" />
+    <Content Include="vendors\owl-carousel\assets\animated.css" />
+    <Content Include="vendors\owl-carousel\assets\owl.carousel.css" />
+    <Content Include="vendors\owl-carousel\owl.carousel.min.css" />
+    <Content Include="vendors\owl-carousel\owl.carousel.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -284,11 +350,6 @@
     <Content Include="Views\Notifications\Details.cshtml" />
     <Content Include="Views\Notifications\Edit.cshtml" />
     <Content Include="Views\Notifications\Index.cshtml" />
-    <Content Include="Views\Students\Create.cshtml" />
-    <Content Include="Views\Students\Delete.cshtml" />
-    <Content Include="Views\Students\Details.cshtml" />
-    <Content Include="Views\Students\Edit.cshtml" />
-    <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Teachers\Create.cshtml" />
     <Content Include="Views\Teachers\Delete.cshtml" />
     <Content Include="Views\Teachers\Details.cshtml" />
@@ -306,11 +367,6 @@
     <Content Include="Views\Status\Details.cshtml" />
     <Content Include="Views\Status\Edit.cshtml" />
     <Content Include="Views\Status\Index.cshtml" />
-    <Content Include="Views\Requests\Create.cshtml" />
-    <Content Include="Views\Requests\Delete.cshtml" />
-    <Content Include="Views\Requests\Details.cshtml" />
-    <Content Include="Views\Requests\Edit.cshtml" />
-    <Content Include="Views\Requests\Index.cshtml" />
     <Content Include="Views\Request_types\Create.cshtml" />
     <Content Include="Views\Request_types\Delete.cshtml" />
     <Content Include="Views\Request_types\Details.cshtml" />
@@ -326,6 +382,17 @@
     <Content Include="Views\Halls\Details.cshtml" />
     <Content Include="Views\Halls\Edit.cshtml" />
     <Content Include="Views\Halls\Index.cshtml" />
+    <Content Include="Views\Students\Create.cshtml" />
+    <Content Include="Views\Students\Delete.cshtml" />
+    <Content Include="Views\Students\Details.cshtml" />
+    <Content Include="Views\Students\Edit.cshtml" />
+    <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\Requests\Create.cshtml" />
+    <Content Include="Views\Requests\Delete.cshtml" />
+    <Content Include="Views\Requests\Details.cshtml" />
+    <Content Include="Views\Requests\Edit.cshtml" />
+    <Content Include="Views\Requests\Index.cshtml" />
+    <Content Include="vendors\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

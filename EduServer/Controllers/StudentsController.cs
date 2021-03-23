@@ -48,7 +48,7 @@ namespace EduServer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,firstname,lastname,year,clas,specialization_id")] student student)
+        public ActionResult Create([Bind(Include="Id,fullname,year,clas,specialization_id,password")] student student)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace EduServer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,firstname,lastname,year,clas,specialization_id")] student student)
+        public ActionResult Edit([Bind(Include="Id,fullname,year,clas,specialization_id,password")] student student)
         {
             if (ModelState.IsValid)
             {

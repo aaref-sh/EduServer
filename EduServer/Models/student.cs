@@ -12,6 +12,7 @@ namespace EduServer.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class student
     {
@@ -30,6 +31,8 @@ namespace EduServer.Models
         [DisplayName("«·«Œ ’«’")]
         public int specialization_id { get; set; }
         [DisplayName("ﬂ·„… «·„—Ê—")]
+        [StringLength(30, ErrorMessage = "Must be between 5 and 30 characters", MinimumLength = 5)]
+        [DataType(DataType.Password)]
         public string password { get; set; }
     
         public virtual ICollection<request> requests { get; set; }

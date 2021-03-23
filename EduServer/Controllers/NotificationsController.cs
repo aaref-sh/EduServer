@@ -52,6 +52,7 @@ namespace EduServer.Controllers
         {
             if (ModelState.IsValid)
             {
+                notification.author = (from x in db.teachers where x.name == "شؤون الطلاب" select x.Id).First();
                 db.notifications.Add(notification);
                 db.SaveChanges();
                 return RedirectToAction("Index");

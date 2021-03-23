@@ -1,24 +1,21 @@
 ﻿@model IEnumerable<EduServer.Models.request>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "الطلبات";
 }
 
-<h2>Index</h2>
+<h2>الطلبات</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.request_type1.name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.student.firstname)
+            @Html.DisplayNameFor(model => model.status1.status1)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.status1.status1)
+            @Html.DisplayNameFor(model => model.student.fullname)
         </th>
         <th></th>
     </tr>
@@ -29,15 +26,15 @@
             @Html.DisplayFor(modelItem => item.request_type1.name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.student.firstname)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.status1.status1)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.DisplayFor(modelItem => item.student.fullname)
+        </td>
+        <td>
+            @Html.ActionLink("تعديل", "Edit", new { id=item.id }) |
+            @Html.ActionLink("تفاصيل", "Details", new { id=item.id }) |
+            @Html.ActionLink("حذف", "Delete", new { id = item.id }, new {@class="btn btn-danger btn-sm" })
         </td>
     </tr>
 }

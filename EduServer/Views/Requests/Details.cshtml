@@ -1,13 +1,13 @@
 ﻿@model EduServer.Models.request
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "تفاصيل طلب";
 }
 
-<h2>Details</h2>
+<h2>تفاصيل</h2>
 
 <div>
-    <h4>request</h4>
+    <h4>طلب</h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,14 +19,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.student.firstname)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.student.firstname)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.status1.status1)
         </dt>
 
@@ -34,9 +26,17 @@
             @Html.DisplayFor(model => model.status1.status1)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.student.fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.student.fullname)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("تعديل", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("الرجوع للقائمة", "Index")
 </p>

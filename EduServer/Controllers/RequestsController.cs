@@ -17,7 +17,7 @@ namespace EduServer.Controllers
         // GET: /Requests/
         public ActionResult Index()
         {
-            var requests = db.requests.Include(r => r.request_type1).Include(r => r.student).Include(r => r.status1);
+            var requests = db.requests.Include(r => r.request_type1).Include(r => r.status1).Include(r => r.student);
             return View(requests.ToList());
         }
 
@@ -40,8 +40,8 @@ namespace EduServer.Controllers
         public ActionResult Create()
         {
             ViewBag.request_type = new SelectList(db.request_type, "id", "name");
-            ViewBag.requester = new SelectList(db.students, "Id", "firstname");
             ViewBag.status = new SelectList(db.status, "id", "status1");
+            ViewBag.requester = new SelectList(db.students, "Id", "fullname");
             return View();
         }
 
@@ -60,8 +60,8 @@ namespace EduServer.Controllers
             }
 
             ViewBag.request_type = new SelectList(db.request_type, "id", "name", request.request_type);
-            ViewBag.requester = new SelectList(db.students, "Id", "firstname", request.requester);
             ViewBag.status = new SelectList(db.status, "id", "status1", request.status);
+            ViewBag.requester = new SelectList(db.students, "Id", "fullname", request.requester);
             return View(request);
         }
 
@@ -78,8 +78,8 @@ namespace EduServer.Controllers
                 return HttpNotFound();
             }
             ViewBag.request_type = new SelectList(db.request_type, "id", "name", request.request_type);
-            ViewBag.requester = new SelectList(db.students, "Id", "firstname", request.requester);
             ViewBag.status = new SelectList(db.status, "id", "status1", request.status);
+            ViewBag.requester = new SelectList(db.students, "Id", "fullname", request.requester);
             return View(request);
         }
 
@@ -97,8 +97,8 @@ namespace EduServer.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.request_type = new SelectList(db.request_type, "id", "name", request.request_type);
-            ViewBag.requester = new SelectList(db.students, "Id", "firstname", request.requester);
             ViewBag.status = new SelectList(db.status, "id", "status1", request.status);
+            ViewBag.requester = new SelectList(db.students, "Id", "fullname", request.requester);
             return View(request);
         }
 
