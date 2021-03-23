@@ -119,10 +119,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="docs\" />
-    <Folder Include="img\blog\cat-post\" />
-    <Folder Include="img\blog\causes\" />
-    <Folder Include="img\blog\main-blog\" />
-    <Folder Include="img\blog\popular-post\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -225,28 +221,10 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="images\background.jpg" />
     <Content Include="img\banner\banner.jpg" />
-    <Content Include="img\banner\home-banner.jpg" />
-    <Content Include="img\blog\student.png" />
     <Content Include="img\favicon.png" />
-    <Content Include="img\features\f1.png" />
-    <Content Include="img\features\f2.png" />
-    <Content Include="img\features\f3.png" />
     <Content Include="img\home\book-footer.jpg" />
-    <Content Include="img\home\books.jpg" />
-    <Content Include="img\logo.png" />
     <Content Include="img\logo2.png" />
-    <Content Include="img\next.png" />
-    <Content Include="img\prev.png" />
-    <Content Include="img\testimonials\t1.jpg" />
-    <Content Include="img\testimonials\t2.jpg" />
-    <Content Include="img\testimonials\t3.jpg" />
-    <Content Include="img\testimonials\t4.jpg" />
-    <Content Include="img\trainer\t1.jpg" />
-    <Content Include="img\trainer\t2.jpg" />
-    <Content Include="img\trainer\t3.jpg" />
-    <Content Include="img\trainer\t4.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -278,11 +256,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Content\.DS_Store" />
-    <Content Include="img\.DS_Store" />
-    <Content Include="img\banner\.DS_Store" />
-    <Content Include="img\features\.DS_Store" />
-    <Content Include="img\testimonials\.DS_Store" />
-    <Content Include="img\trainer\.DS_Store" />
     <None Include="Properties\PublishProfiles\myprofile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\contact.js" />
@@ -355,7 +328,6 @@
     <Content Include="Views\Teachers\Details.cshtml" />
     <Content Include="Views\Teachers\Edit.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
-    <Content Include="Views\Home\GetFileFromDisk.cshtml" />
     <Content Include="Views\Home\Download.cshtml" />
     <Content Include="Views\Docs\Create.cshtml" />
     <Content Include="Views\Docs\Delete.cshtml" />

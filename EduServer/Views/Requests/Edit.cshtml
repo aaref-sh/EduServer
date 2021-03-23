@@ -15,23 +15,25 @@
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.id)
+        <div style="display :none">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.requester, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("requester", String.Empty)
-                @Html.ValidationMessageFor(model => model.requester)
+            <div class="form-group">
+                @Html.LabelFor(model => model.requester, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("requester", String.Empty)
+                    @Html.ValidationMessageFor(model => model.requester)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.request_type, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("request_type", String.Empty)
-                @Html.ValidationMessageFor(model => model.request_type)
+            <div class="form-group">
+                @Html.LabelFor(model => model.request_type, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("request_type", String.Empty)
+                    @Html.ValidationMessageFor(model => model.request_type)
+                </div>
             </div>
-        </div>
 
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.status, new { @class = "control-label col-md-2" })
             <div class="col-md-10">

@@ -13,7 +13,7 @@ namespace EduServer.Controllers
         serdbEntities2 db = new serdbEntities2();
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "الرئيسية";
 
             return View();
         }

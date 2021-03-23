@@ -17,7 +17,7 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
+        <div class="form-group" style="display:none">
             @Html.LabelFor(model => model.author, "author", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("author", String.Empty)
