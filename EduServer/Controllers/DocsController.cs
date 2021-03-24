@@ -17,6 +17,7 @@ namespace EduServer.Controllers
         // GET: /Docs/
         public ActionResult Index()
         {
+            if (Session["logged"] == null) return RedirectToAction("Index", "login", null);
             var docs = db.docs.Include(d => d.teacher);
             return View(docs.ToList());
         }
@@ -24,6 +25,7 @@ namespace EduServer.Controllers
         // GET: /Docs/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["logged"] == null) return RedirectToAction("Index", "login", null);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +41,7 @@ namespace EduServer.Controllers
         // GET: /Docs/Create
         public ActionResult Create()
         {
+            if (Session["logged"] == null) return RedirectToAction("Index", "login", null);
             ViewBag.owner = new SelectList(db.teachers, "Id", "name");
             return View();
         }
@@ -64,6 +67,7 @@ namespace EduServer.Controllers
         // GET: /Docs/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["logged"] == null) return RedirectToAction("Index", "login", null);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -97,6 +101,7 @@ namespace EduServer.Controllers
         // GET: /Docs/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["logged"] == null) return RedirectToAction("Index", "login", null);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

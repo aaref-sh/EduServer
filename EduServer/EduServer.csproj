@@ -143,6 +143,7 @@
     <Compile Include="Controllers\HallsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LecturesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\RequestsController.cs" />
     <Compile Include="Controllers\Request_typesController.cs" />
@@ -217,11 +218,14 @@
     <Content Include="Content\flaticon.css" />
     <Content Include="Content\my.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\style1.css" />
     <Content Include="Content\themify-icons.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="img\3jPYgeVCTWCMqjtb7Dqi_IMG_8251-1400x933.jpg" />
     <Content Include="img\banner\banner.jpg" />
+    <Content Include="img\circle_close_delete_-128.png" />
     <Content Include="img\favicon.png" />
     <Content Include="img\home\book-footer.jpg" />
     <Content Include="img\logo2.png" />
@@ -274,6 +278,7 @@
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Scripts\stellar.js" />
     <Content Include="Scripts\theme.js" />
     <Content Include="vendors\bootstrap-datepicker\bootstrap-datetimepicker.min.css" />
@@ -292,6 +297,7 @@
     <Content Include="vendors\owl-carousel\assets\owl.carousel.css" />
     <Content Include="vendors\owl-carousel\owl.carousel.min.css" />
     <Content Include="vendors\owl-carousel\owl.carousel.min.js" />
+    <Content Include="img\login-w-icon.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -365,6 +371,7 @@
     <Content Include="Views\Requests\Edit.cshtml" />
     <Content Include="Views\Requests\Index.cshtml" />
     <Content Include="vendors\.DS_Store" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

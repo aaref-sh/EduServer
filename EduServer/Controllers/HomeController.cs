@@ -13,6 +13,7 @@ namespace EduServer.Controllers
         serdbEntities2 db = new serdbEntities2();
         public ActionResult Index()
         {
+            if (Session["logged"] == null) return RedirectToAction("Index", "login", null);
             ViewBag.Title = "الرئيسية";
 
             return View();
