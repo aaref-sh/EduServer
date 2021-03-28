@@ -8,16 +8,8 @@
 
 <div>
     <h4>محاضرة</h4>
-	<hr />
+    <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.year)
         </dt>
@@ -56,6 +48,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.lecture_at.time_at)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.material.material_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.material.material_name)
         </dd>
 
         <dt>

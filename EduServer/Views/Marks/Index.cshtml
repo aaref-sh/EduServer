@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EduServer.Models.mark>
+
+@{
+    ViewBag.Title = "العلامات";
+}
+
+<h2>العلامات</h2>
+
+<p>
+    @Html.ActionLink("إنشاء جديد", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.material.material_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.student.fullname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mark1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.material.material_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.student.fullname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mark1)
+        </td>
+        <td>
+            @Html.ActionLink("تعديل", "Edit", new { id=item.id }) |
+            @Html.ActionLink("تفاصيل", "Details", new { id=item.id }) |
+            @Html.ActionLink("حذف", "Delete", new { id = item.id }, new { @class = "btn btn-danger btn-sm" })
+        </td>
+    </tr>
+}
+
+</table>

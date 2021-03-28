@@ -1,0 +1,48 @@
+﻿@model EduServer.Models.mark
+
+@{
+    ViewBag.Title = "حذف علامة";
+}
+
+<h2>حذف</h2>
+
+<h3>هل تريد بالتأكيد حذف هذا؟</h3>
+<div>
+    <h4>علامة</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.mark1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mark1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.material.material_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.material.material_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.student.fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.student.fullname)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" /> |
+            @Html.ActionLink("الرجوع للقائمة", "Index")
+        </div>
+    }
+</div>

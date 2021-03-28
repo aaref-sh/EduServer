@@ -32,13 +32,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="year" Type="int" Nullable="false" />
           <Property Name="specialization_id" Type="int" Nullable="false" />
           <Property Name="clas" Type="int" Nullable="false" />
           <Property Name="lecture_at_id" Type="int" Nullable="false" />
           <Property Name="dayinweek" Type="int" Nullable="false" />
           <Property Name="hall_id" Type="int" Nullable="false" />
+          <Property Name="material_id" Type="int" />
         </EntityType>
         <EntityType Name="lecture_at">
           <Key>
@@ -46,6 +46,22 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="time_at" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mark">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="student_id" Type="int" Nullable="false" />
+          <Property Name="material_id" Type="int" Nullable="false" />
+          <Property Name="mark" Type="float" />
+        </EntityType>
+        <EntityType Name="material">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="material_name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="notification">
           <Key>
@@ -105,20 +121,6 @@
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK__lecture__dayinwe__440B1D61">
-          <End Role="dayinweek" Type="Self.dayinweek" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="lecture" Type="Self.lecture" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dayinweek">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="lecture">
-              <PropertyRef Name="dayinweek" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_docs_teacher">
           <End Role="teacher" Type="Self.teacher" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -130,6 +132,20 @@
             </Principal>
             <Dependent Role="docs">
               <PropertyRef Name="owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lecture_dayinweek">
+          <End Role="dayinweek" Type="Self.dayinweek" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lecture" Type="Self.lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dayinweek">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="dayinweek" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -147,7 +163,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_lecture_Tolecture_at">
+        <Association Name="FK_lecture_lecture_at">
           <End Role="lecture_at" Type="Self.lecture_at" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -161,7 +177,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_lectures_ToSpecialization">
+        <Association Name="FK_lecture_material">
+          <End Role="material" Type="Self.material" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lecture" Type="Self.lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="material_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lecture_specialization">
           <End Role="specialization" Type="Self.specialization" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -172,6 +202,34 @@
             </Principal>
             <Dependent Role="lecture">
               <PropertyRef Name="specialization_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mark_material">
+          <End Role="material" Type="Self.material" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mark" Type="Self.mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="mark">
+              <PropertyRef Name="material_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mark_student">
+          <End Role="student" Type="Self.student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mark" Type="Self.mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mark">
+              <PropertyRef Name="student_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -251,6 +309,8 @@
           <EntitySet Name="hall" EntityType="Self.hall" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lecture" EntityType="Self.lecture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lecture_at" EntityType="Self.lecture_at" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mark" EntityType="Self.mark" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="material" EntityType="Self.material" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="request" EntityType="Self.request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="request_type" EntityType="Self.request_type" Schema="dbo" store:Type="Tables" />
@@ -258,25 +318,37 @@
           <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="student" EntityType="Self.student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="teacher" EntityType="Self.teacher" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__lecture__dayinwe__440B1D61" Association="Self.FK__lecture__dayinwe__440B1D61">
-            <End Role="dayinweek" EntitySet="dayinweek" />
-            <End Role="lecture" EntitySet="lecture" />
-          </AssociationSet>
           <AssociationSet Name="FK_docs_teacher" Association="Self.FK_docs_teacher">
             <End Role="teacher" EntitySet="teacher" />
             <End Role="docs" EntitySet="docs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lecture_dayinweek" Association="Self.FK_lecture_dayinweek">
+            <End Role="dayinweek" EntitySet="dayinweek" />
+            <End Role="lecture" EntitySet="lecture" />
           </AssociationSet>
           <AssociationSet Name="FK_lecture_hall" Association="Self.FK_lecture_hall">
             <End Role="hall" EntitySet="hall" />
             <End Role="lecture" EntitySet="lecture" />
           </AssociationSet>
-          <AssociationSet Name="FK_lecture_Tolecture_at" Association="Self.FK_lecture_Tolecture_at">
+          <AssociationSet Name="FK_lecture_lecture_at" Association="Self.FK_lecture_lecture_at">
             <End Role="lecture_at" EntitySet="lecture_at" />
             <End Role="lecture" EntitySet="lecture" />
           </AssociationSet>
-          <AssociationSet Name="FK_lectures_ToSpecialization" Association="Self.FK_lectures_ToSpecialization">
+          <AssociationSet Name="FK_lecture_material" Association="Self.FK_lecture_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="lecture" EntitySet="lecture" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lecture_specialization" Association="Self.FK_lecture_specialization">
             <End Role="specialization" EntitySet="specialization" />
             <End Role="lecture" EntitySet="lecture" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mark_material" Association="Self.FK_mark_material">
+            <End Role="material" EntitySet="material" />
+            <End Role="mark" EntitySet="mark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mark_student" Association="Self.FK_mark_student">
+            <End Role="student" EntitySet="student" />
+            <End Role="mark" EntitySet="mark" />
           </AssociationSet>
           <AssociationSet Name="FK_notification_teacher" Association="Self.FK_notification_teacher">
             <End Role="teacher" EntitySet="teacher" />
@@ -307,7 +379,6 @@
           <EntitySet Name="dayinweeks" EntityType="serdbModel.dayinweek" />
           <EntitySet Name="docs" EntityType="serdbModel.doc" />
           <EntitySet Name="halls" EntityType="serdbModel.hall" />
-          <EntitySet Name="lectures" EntityType="serdbModel.lecture" />
           <EntitySet Name="lecture_at" EntityType="serdbModel.lecture_at" />
           <EntitySet Name="notifications" EntityType="serdbModel.notification" />
           <EntitySet Name="requests" EntityType="serdbModel.request" />
@@ -315,25 +386,9 @@
           <EntitySet Name="specializations" EntityType="serdbModel.specialization" />
           <EntitySet Name="status" EntityType="serdbModel.status" />
           <EntitySet Name="teachers" EntityType="serdbModel.teacher" />
-          <AssociationSet Name="FK__lecture__dayinwe__440B1D61" Association="serdbModel.FK__lecture__dayinwe__440B1D61">
-            <End Role="dayinweek" EntitySet="dayinweeks" />
-            <End Role="lecture" EntitySet="lectures" />
-          </AssociationSet>
           <AssociationSet Name="FK_docs_teacher" Association="serdbModel.FK_docs_teacher">
             <End Role="teacher" EntitySet="teachers" />
             <End Role="doc" EntitySet="docs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_lecture_hall" Association="serdbModel.FK_lecture_hall">
-            <End Role="hall" EntitySet="halls" />
-            <End Role="lecture" EntitySet="lectures" />
-          </AssociationSet>
-          <AssociationSet Name="FK_lecture_Tolecture_at" Association="serdbModel.FK_lecture_Tolecture_at">
-            <End Role="lecture_at" EntitySet="lecture_at" />
-            <End Role="lecture" EntitySet="lectures" />
-          </AssociationSet>
-          <AssociationSet Name="FK_lectures_ToSpecialization" Association="serdbModel.FK_lectures_ToSpecialization">
-            <End Role="specialization" EntitySet="specializations" />
-            <End Role="lecture" EntitySet="lectures" />
           </AssociationSet>
           <AssociationSet Name="FK_notification_teacher" Association="serdbModel.FK_notification_teacher">
             <End Role="teacher" EntitySet="teachers" />
@@ -356,6 +411,37 @@
             <End Role="specialization" EntitySet="specializations" />
             <End Role="student" EntitySet="students" />
           </AssociationSet>
+          <EntitySet Name="lectures" EntityType="serdbModel.lecture" />
+          <EntitySet Name="materials" EntityType="serdbModel.material" />
+          <AssociationSet Name="FK_lecture_dayinweek" Association="serdbModel.FK_lecture_dayinweek">
+            <End Role="dayinweek" EntitySet="dayinweeks" />
+            <End Role="lecture" EntitySet="lectures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lecture_hall" Association="serdbModel.FK_lecture_hall">
+            <End Role="hall" EntitySet="halls" />
+            <End Role="lecture" EntitySet="lectures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lecture_lecture_at" Association="serdbModel.FK_lecture_lecture_at">
+            <End Role="lecture_at" EntitySet="lecture_at" />
+            <End Role="lecture" EntitySet="lectures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lecture_material" Association="serdbModel.FK_lecture_material">
+            <End Role="material" EntitySet="materials" />
+            <End Role="lecture" EntitySet="lectures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lecture_specialization" Association="serdbModel.FK_lecture_specialization">
+            <End Role="specialization" EntitySet="specializations" />
+            <End Role="lecture" EntitySet="lectures" />
+          </AssociationSet>
+          <EntitySet Name="marks" EntityType="serdbModel.mark" />
+          <AssociationSet Name="FK_mark_material" Association="serdbModel.FK_mark_material">
+            <End Role="material" EntitySet="materials" />
+            <End Role="mark" EntitySet="marks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mark_student" Association="serdbModel.FK_mark_student">
+            <End Role="student" EntitySet="students" />
+            <End Role="mark" EntitySet="marks" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="dayinweek">
           <Key>
@@ -363,7 +449,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="dayname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="lectures" Relationship="serdbModel.FK__lecture__dayinwe__440B1D61" FromRole="dayinweek" ToRole="lecture" />
+          <NavigationProperty Name="lectures" Relationship="serdbModel.FK_lecture_dayinweek" FromRole="dayinweek" ToRole="lecture" />
         </EntityType>
         <EntityType Name="doc">
           <Key>
@@ -382,30 +468,13 @@
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="lectures" Relationship="serdbModel.FK_lecture_hall" FromRole="hall" ToRole="lecture" />
         </EntityType>
-        <EntityType Name="lecture">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="year" Type="Int32" Nullable="false" />
-          <Property Name="specialization_id" Type="Int32" Nullable="false" />
-          <Property Name="clas" Type="Int32" Nullable="false" />
-          <Property Name="lecture_at_id" Type="Int32" Nullable="false" />
-          <Property Name="dayinweek" Type="Int32" Nullable="false" />
-          <Property Name="hall_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="dayinweek1" Relationship="serdbModel.FK__lecture__dayinwe__440B1D61" FromRole="lecture" ToRole="dayinweek" />
-          <NavigationProperty Name="hall" Relationship="serdbModel.FK_lecture_hall" FromRole="lecture" ToRole="hall" />
-          <NavigationProperty Name="lecture_at" Relationship="serdbModel.FK_lecture_Tolecture_at" FromRole="lecture" ToRole="lecture_at" />
-          <NavigationProperty Name="specialization" Relationship="serdbModel.FK_lectures_ToSpecialization" FromRole="lecture" ToRole="specialization" />
-        </EntityType>
         <EntityType Name="lecture_at">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="time_at" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="lectures" Relationship="serdbModel.FK_lecture_Tolecture_at" FromRole="lecture_at" ToRole="lecture" />
+          <NavigationProperty Name="lectures" Relationship="serdbModel.FK_lecture_lecture_at" FromRole="lecture_at" ToRole="lecture" />
         </EntityType>
         <EntityType Name="notification">
           <Key>
@@ -443,8 +512,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="lectures" Relationship="serdbModel.FK_lectures_ToSpecialization" FromRole="specialization" ToRole="lecture" />
           <NavigationProperty Name="students" Relationship="serdbModel.FK_student_ToSpecialization" FromRole="specialization" ToRole="student" />
+          <NavigationProperty Name="lectures" Relationship="serdbModel.FK_lecture_specialization" FromRole="specialization" ToRole="lecture" />
         </EntityType>
         <EntityType Name="status">
           <Key>
@@ -464,20 +533,6 @@
           <NavigationProperty Name="docs" Relationship="serdbModel.FK_docs_teacher" FromRole="teacher" ToRole="doc" />
           <NavigationProperty Name="notifications" Relationship="serdbModel.FK_notification_teacher" FromRole="teacher" ToRole="notification" />
         </EntityType>
-        <Association Name="FK__lecture__dayinwe__440B1D61">
-          <End Type="serdbModel.dayinweek" Role="dayinweek" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="serdbModel.lecture" Role="lecture" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dayinweek">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="lecture">
-              <PropertyRef Name="dayinweek" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_docs_teacher">
           <End Type="serdbModel.teacher" Role="teacher" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -489,48 +544,6 @@
             </Principal>
             <Dependent Role="doc">
               <PropertyRef Name="owner" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_lecture_hall">
-          <End Type="serdbModel.hall" Role="hall" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="serdbModel.lecture" Role="lecture" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="hall">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="lecture">
-              <PropertyRef Name="hall_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_lecture_Tolecture_at">
-          <End Type="serdbModel.lecture_at" Role="lecture_at" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="serdbModel.lecture" Role="lecture" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="lecture_at">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="lecture">
-              <PropertyRef Name="lecture_at_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_lectures_ToSpecialization">
-          <End Type="serdbModel.specialization" Role="specialization" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="serdbModel.lecture" Role="lecture" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="specialization">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="lecture">
-              <PropertyRef Name="specialization_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -588,6 +601,7 @@
           <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="requests" Relationship="serdbModel.FK_request_student" FromRole="student" ToRole="request" />
           <NavigationProperty Name="specialization" Relationship="serdbModel.FK_student_ToSpecialization" FromRole="student" ToRole="specialization" />
+          <NavigationProperty Name="marks" Relationship="serdbModel.FK_mark_student" FromRole="student" ToRole="mark" />
         </EntityType>
         <Association Name="FK_request_student">
           <End Type="serdbModel.student" Role="student" Multiplicity="1">
@@ -614,6 +628,142 @@
             </Principal>
             <Dependent Role="student">
               <PropertyRef Name="specialization_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="lecture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="specialization_id" Type="Int32" Nullable="false" />
+          <Property Name="clas" Type="Int32" Nullable="false" />
+          <Property Name="lecture_at_id" Type="Int32" Nullable="false" />
+          <Property Name="dayinweek" Type="Int32" Nullable="false" />
+          <Property Name="hall_id" Type="Int32" Nullable="false" />
+          <Property Name="material_id" Type="Int32" />
+          <NavigationProperty Name="dayinweek1" Relationship="serdbModel.FK_lecture_dayinweek" FromRole="lecture" ToRole="dayinweek" />
+          <NavigationProperty Name="hall" Relationship="serdbModel.FK_lecture_hall" FromRole="lecture" ToRole="hall" />
+          <NavigationProperty Name="lecture_at" Relationship="serdbModel.FK_lecture_lecture_at" FromRole="lecture" ToRole="lecture_at" />
+          <NavigationProperty Name="material" Relationship="serdbModel.FK_lecture_material" FromRole="lecture" ToRole="material" />
+          <NavigationProperty Name="specialization" Relationship="serdbModel.FK_lecture_specialization" FromRole="lecture" ToRole="specialization" />
+        </EntityType>
+        <EntityType Name="material">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="material_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="lectures" Relationship="serdbModel.FK_lecture_material" FromRole="material" ToRole="lecture" />
+          <NavigationProperty Name="marks" Relationship="serdbModel.FK_mark_material" FromRole="material" ToRole="mark" />
+        </EntityType>
+        <Association Name="FK_lecture_dayinweek">
+          <End Type="serdbModel.dayinweek" Role="dayinweek" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.lecture" Role="lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dayinweek">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="dayinweek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lecture_hall">
+          <End Type="serdbModel.hall" Role="hall" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.lecture" Role="lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hall">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="hall_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lecture_lecture_at">
+          <End Type="serdbModel.lecture_at" Role="lecture_at" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.lecture" Role="lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lecture_at">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="lecture_at_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lecture_material">
+          <End Type="serdbModel.material" Role="material" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.lecture" Role="lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="material_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lecture_specialization">
+          <End Type="serdbModel.specialization" Role="specialization" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.lecture" Role="lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="specialization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="lecture">
+              <PropertyRef Name="specialization_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="mark">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="student_id" Type="Int32" Nullable="false" />
+          <Property Name="material_id" Type="Int32" Nullable="false" />
+          <Property Name="mark1" Type="Double" />
+          <NavigationProperty Name="material" Relationship="serdbModel.FK_mark_material" FromRole="mark" ToRole="material" />
+          <NavigationProperty Name="student" Relationship="serdbModel.FK_mark_student" FromRole="mark" ToRole="student" />
+        </EntityType>
+        <Association Name="FK_mark_material">
+          <End Type="serdbModel.material" Role="material" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.mark" Role="mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="material">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="mark">
+              <PropertyRef Name="material_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mark_student">
+          <End Type="serdbModel.student" Role="student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serdbModel.mark" Role="mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mark">
+              <PropertyRef Name="student_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -645,20 +795,6 @@
               <MappingFragment StoreEntitySet="hall">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="lectures">
-            <EntityTypeMapping TypeName="serdbModel.lecture">
-              <MappingFragment StoreEntitySet="lecture">
-                <ScalarProperty Name="hall_id" ColumnName="hall_id" />
-                <ScalarProperty Name="dayinweek" ColumnName="dayinweek" />
-                <ScalarProperty Name="lecture_at_id" ColumnName="lecture_at_id" />
-                <ScalarProperty Name="clas" ColumnName="clas" />
-                <ScalarProperty Name="specialization_id" ColumnName="specialization_id" />
-                <ScalarProperty Name="year" ColumnName="year" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -732,6 +868,38 @@
                 <ScalarProperty Name="year" ColumnName="year" />
                 <ScalarProperty Name="fullname" ColumnName="fullname" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lectures">
+            <EntityTypeMapping TypeName="serdbModel.lecture">
+              <MappingFragment StoreEntitySet="lecture">
+                <ScalarProperty Name="material_id" ColumnName="material_id" />
+                <ScalarProperty Name="hall_id" ColumnName="hall_id" />
+                <ScalarProperty Name="dayinweek" ColumnName="dayinweek" />
+                <ScalarProperty Name="lecture_at_id" ColumnName="lecture_at_id" />
+                <ScalarProperty Name="clas" ColumnName="clas" />
+                <ScalarProperty Name="specialization_id" ColumnName="specialization_id" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="materials">
+            <EntityTypeMapping TypeName="serdbModel.material">
+              <MappingFragment StoreEntitySet="material">
+                <ScalarProperty Name="material_name" ColumnName="material_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marks">
+            <EntityTypeMapping TypeName="serdbModel.mark">
+              <MappingFragment StoreEntitySet="mark">
+                <ScalarProperty Name="mark1" ColumnName="mark" />
+                <ScalarProperty Name="material_id" ColumnName="material_id" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

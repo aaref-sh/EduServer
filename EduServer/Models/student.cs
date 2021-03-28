@@ -19,8 +19,9 @@ namespace EduServer.Models
         public student()
         {
             this.requests = new HashSet<request>();
+            this.marks = new HashSet<mark>();
         }
-
+    
         public int Id { get; set; }
         [DisplayName("«·«”„ «·ﬂ«„·")]
         public string fullname { get; set; }
@@ -37,5 +38,6 @@ namespace EduServer.Models
     
         public virtual ICollection<request> requests { get; set; }
         public virtual specialization specialization { get; set; }
+        public virtual ICollection<mark> marks { get; set; }
     }
 }

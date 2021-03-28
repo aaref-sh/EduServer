@@ -28,7 +28,6 @@ namespace EduServer.Models
         public DbSet<dayinweek> dayinweeks { get; set; }
         public DbSet<doc> docs { get; set; }
         public DbSet<hall> halls { get; set; }
-        public DbSet<lecture> lectures { get; set; }
         public DbSet<lecture_at> lecture_at { get; set; }
         public DbSet<notification> notifications { get; set; }
         public DbSet<request> requests { get; set; }
@@ -37,5 +36,8 @@ namespace EduServer.Models
         public DbSet<status> status { get; set; }
         public DbSet<teacher> teachers { get; set; }
         public DbSet<student> students { get; set; }
+        public DbSet<lecture> lectures { get; set; }
+        public DbSet<material> materials { get; set; }
+        public DbSet<mark> marks { get; set; }
     }
 }

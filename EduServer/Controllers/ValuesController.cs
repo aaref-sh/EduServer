@@ -13,18 +13,23 @@ namespace EduServer.Controllers
     public class ValuesController : ApiController
     {
         serdbEntities2 db = new serdbEntities2();
-        // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
         [HttpGet]
-        public List<doc> GetDocList(int id)
+        public List<Doc> GetDocList(int id)
         {
-            List<doc> dl ;
+            List<doc> dl;
+            List<Doc> Dl = new List<Doc>();
             if (id == 0) dl = db.docs.ToList();
             else dl = (from x in db.docs where id == x.owner select x).ToList();
-            return dl;
+            foreach (var x in dl)
+            {
+                Doc d = new Doc();
+                d.id = x.id;
+                d.name = x.path;
+                d.ownerid = x.owner;
+                d.owner = x.teacher.name;
+                Dl.Add(d);
+            }
+            return Dl;
         }
         [HttpPost]
         public String addnotification(notification n)
@@ -71,20 +76,55 @@ namespace EduServer.Controllers
         }
 
         [HttpGet]
-        public List<lecture> DaysTable(int id)
+        public List<Lec> DaysTable(int id)
         {
+            List<Lec> ll = new List<Lec>();
             student s = (from x in db.students where x.Id == id select x).First();
-            return (from x in db.lectures where x.clas == s.clas && x.year == s.year && x.specialization_id == s.specialization_id select x).ToList();
+            var l = (from x in db.lectures where x.clas == s.clas && x.year == s.year && x.specialization_id == s.specialization_id select x).ToList();
+            foreach (var x in l)
+            {
+                Lec lc = new Lec();
+                lc.time = x.lecture_at_id;
+                lc.day = x.dayinweek;
+                lc.material = x.material.material_name;
+                lc.hall = x.hall.name;
+                ll.Add(lc);
+            }
+            return ll;
         } 
         [HttpGet]
-        public List<notification> notificationlist()
+        public List<Notif> notificationlist()
         {
-            return db.notifications.ToList();
+            var l = db.notifications.ToList();
+            List<Notif> nl = new List<Notif>();
+            foreach (var x in l)
+            {
+                Notif n = new Notif();
+                n.id = x.Id;
+                n.author = x.teacher.name;
+                n.title = x.title;
+                n.description = x.description;
+                n.authorid = x.author;
+                nl.Add(n);
+            }
+            return nl;
         } 
         [HttpPost]
-        public List<request> requestlist(student s)
+        public List<Req> requestlist(student s)
         {
-            return (from x in db.requests where x.requester == s.Id select x).ToList();
+            List<Req> rl = new List<Req>();
+            var l = (from x in db.requests where x.requester == s.Id select x).ToList();
+            foreach (var x in l)
+            {
+                Req r = new Req();
+                r.id = x.id;
+                r.status = x.status1.status1;
+                r.statusid = x.status;
+                r.type = x.request_type1.name;
+                r.typeid = x.request_type;
+                rl.Add(r);
+            }
+            return rl;
         }
         [HttpPost]
         public bool signin(student s){
@@ -99,17 +139,26 @@ namespace EduServer.Controllers
             if(tl.Count==0)return 0;
             return tl.First().Id;
         }
-        
+        [HttpPost]
+        public List<Mrk> marklist(student s)
+        {
+            var l = (from x in db.marks where x.student_id == s.Id select x).ToList();
+            List<Mrk> ml = new List<Mrk>();
+            foreach (var x in l)
+            {
+                Mrk m = new Mrk();
+                m.mark = x.mark1;
+                m.name = x.material.material_name;
+                ml.Add(m);
+            }
+            return ml;
+        }
         [HttpPost]
         public void del(notification N)
         {
             notification n = (from x in db.notifications where x.Id == N.Id select x).First();
             db.notifications.Remove(n);
             db.SaveChanges();
-        }
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
         }
 
     }

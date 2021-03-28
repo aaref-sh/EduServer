@@ -1,0 +1,52 @@
+﻿@model EduServer.Models.mark
+
+@{
+    ViewBag.Title = "إنشاء علامة";
+}
+
+<h2>إنشاء</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>علامة</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.student_id, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("student_id", String.Empty)
+                @Html.ValidationMessageFor(model => model.student_id)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.material_id, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("material_id", String.Empty)
+                @Html.ValidationMessageFor(model => model.material_id)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.mark1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.mark1)
+                @Html.ValidationMessageFor(model => model.mark1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="إنشاء" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("الرجوع للقائمة", "Index")
+</div>

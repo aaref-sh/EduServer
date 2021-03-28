@@ -16,8 +16,6 @@ namespace EduServer.Models
     public partial class lecture
     {
         public int Id { get; set; }
-        [DisplayName("«·„«œ…")]
-        public string name { get; set; }
         [DisplayName("«·”‰…")]
         public int year { get; set; }
         [DisplayName("«·«Œ ’«’")]
@@ -30,11 +28,13 @@ namespace EduServer.Models
         public int dayinweek { get; set; }
         [DisplayName("«·ﬁ«⁄…")]
         public int hall_id { get; set; }
+        [DisplayName("«·„«œ…")]
+        public Nullable<int> material_id { get; set; }
     
         public virtual dayinweek dayinweek1 { get; set; }
-        [DisplayName("«·ﬁ«⁄…")]
         public virtual hall hall { get; set; }
         public virtual lecture_at lecture_at { get; set; }
+        public virtual material material { get; set; }
         public virtual specialization specialization { get; set; }
     }
 }

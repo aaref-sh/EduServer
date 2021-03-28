@@ -144,6 +144,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LecturesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MarksController.cs" />
+    <Compile Include="Controllers\MaterialsController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\RequestsController.cs" />
     <Compile Include="Controllers\Request_typesController.cs" />
@@ -166,10 +168,17 @@
     <Compile Include="Models\hall.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Lec.cs" />
     <Compile Include="Models\lecture.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\lecture_at.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\mark.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\material.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
@@ -350,11 +359,6 @@
     <Content Include="Views\Request_types\Details.cshtml" />
     <Content Include="Views\Request_types\Edit.cshtml" />
     <Content Include="Views\Request_types\Index.cshtml" />
-    <Content Include="Views\Lectures\Create.cshtml" />
-    <Content Include="Views\Lectures\Delete.cshtml" />
-    <Content Include="Views\Lectures\Details.cshtml" />
-    <Content Include="Views\Lectures\Edit.cshtml" />
-    <Content Include="Views\Lectures\Index.cshtml" />
     <Content Include="Views\Halls\Create.cshtml" />
     <Content Include="Views\Halls\Delete.cshtml" />
     <Content Include="Views\Halls\Details.cshtml" />
@@ -372,6 +376,21 @@
     <Content Include="Views\Requests\Index.cshtml" />
     <Content Include="vendors\.DS_Store" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Lectures\Create.cshtml" />
+    <Content Include="Views\Lectures\Delete.cshtml" />
+    <Content Include="Views\Lectures\Details.cshtml" />
+    <Content Include="Views\Lectures\Edit.cshtml" />
+    <Content Include="Views\Lectures\Index.cshtml" />
+    <Content Include="Views\Materials\Create.cshtml" />
+    <Content Include="Views\Materials\Delete.cshtml" />
+    <Content Include="Views\Materials\Details.cshtml" />
+    <Content Include="Views\Materials\Edit.cshtml" />
+    <Content Include="Views\Materials\Index.cshtml" />
+    <Content Include="Views\Marks\Create.cshtml" />
+    <Content Include="Views\Marks\Delete.cshtml" />
+    <Content Include="Views\Marks\Details.cshtml" />
+    <Content Include="Views\Marks\Edit.cshtml" />
+    <Content Include="Views\Marks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

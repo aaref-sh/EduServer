@@ -1,0 +1,42 @@
+﻿@model EduServer.Models.mark
+
+@{
+    ViewBag.Title = "تفاصيل علامة";
+}
+
+<h2>تفاصيل</h2>
+
+<div>
+    <h4>علامة</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.mark1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mark1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.material.material_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.material.material_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.student.fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.student.fullname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("تعديل", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("الرجوع للقائمة", "Index")
+</p>

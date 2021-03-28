@@ -4,29 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3a0fe75a6d3944ae9ef45a88527dc0df" Name="Diagram1" ZoomLevel="133">
+      <Diagram DiagramId="3a0fe75a6d3944ae9ef45a88527dc0df" Name="Diagram1" ZoomLevel="100">
         <EntityTypeShape EntityType="serdbModel.dayinweek" Width="1.5" PointX="0.75" PointY="2.625" />
-        <EntityTypeShape EntityType="serdbModel.doc" Width="1.5" PointX="10.25" PointY="2.875" />
-        <EntityTypeShape EntityType="serdbModel.hall" Width="1.5" PointX="1.25" PointY="4.625" />
-        <EntityTypeShape EntityType="serdbModel.lecture" Width="1.5" PointX="3.625" PointY="0.75" />
+        <EntityTypeShape EntityType="serdbModel.doc" Width="1.5" PointX="8.875" PointY="1.125" />
+        <EntityTypeShape EntityType="serdbModel.hall" Width="1.5" PointX="0.75" PointY="4.875" />
         <EntityTypeShape EntityType="serdbModel.lecture_at" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="serdbModel.notification" Width="1.5" PointX="8" PointY="0.5" />
-        <EntityTypeShape EntityType="serdbModel.request" Width="1.5" PointX="7.875" PointY="3.625" />
-        <EntityTypeShape EntityType="serdbModel.request_type" Width="1.5" PointX="10.25" PointY="4.875" />
-        <EntityTypeShape EntityType="serdbModel.specialization" Width="1.5" PointX="3.625" PointY="4.5" />
-        <EntityTypeShape EntityType="serdbModel.status" Width="1.5" PointX="5.625" PointY="1" />
-        <EntityTypeShape EntityType="serdbModel.teacher" Width="1.5" PointX="10.125" PointY="0.5" />
-        <AssociationConnector Association="serdbModel.FK__lecture__dayinwe__440B1D61" />
+        <EntityTypeShape EntityType="serdbModel.notification" Width="1.5" PointX="10.875" PointY="4.125" />
+        <EntityTypeShape EntityType="serdbModel.request" Width="1.5" PointX="9" PointY="3.75" />
+        <EntityTypeShape EntityType="serdbModel.request_type" Width="1.5" PointX="7" PointY="3" />
+        <EntityTypeShape EntityType="serdbModel.specialization" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="serdbModel.status" Width="1.5" PointX="7" PointY="4.875" />
+        <EntityTypeShape EntityType="serdbModel.teacher" Width="1.5" PointX="10.875" PointY="0.75" />
         <AssociationConnector Association="serdbModel.FK_docs_teacher" />
-        <AssociationConnector Association="serdbModel.FK_lecture_hall" />
-        <AssociationConnector Association="serdbModel.FK_lecture_Tolecture_at" />
-        <AssociationConnector Association="serdbModel.FK_lectures_ToSpecialization" />
         <AssociationConnector Association="serdbModel.FK_notification_teacher" />
         <AssociationConnector Association="serdbModel.FK_request_request_type" />
         <AssociationConnector Association="serdbModel.FK_request_status" />
-        <EntityTypeShape EntityType="serdbModel.student" Width="1.5" PointX="5.875" PointY="3.75" />
+        <EntityTypeShape EntityType="serdbModel.student" Width="1.5" PointX="5.125" PointY="3.75" />
         <AssociationConnector Association="serdbModel.FK_request_student" />
         <AssociationConnector Association="serdbModel.FK_student_ToSpecialization" />
+        <EntityTypeShape EntityType="serdbModel.lecture" Width="1.5" PointX="2.875" PointY="0.5" />
+        <EntityTypeShape EntityType="serdbModel.material" Width="1.5" PointX="4.875" PointY="0.5" />
+        <AssociationConnector Association="serdbModel.FK_lecture_dayinweek" />
+        <AssociationConnector Association="serdbModel.FK_lecture_hall" />
+        <AssociationConnector Association="serdbModel.FK_lecture_lecture_at" />
+        <AssociationConnector Association="serdbModel.FK_lecture_material" />
+        <AssociationConnector Association="serdbModel.FK_lecture_specialization" />
+        <EntityTypeShape EntityType="serdbModel.mark" Width="1.5" PointX="7" PointY="0.5" />
+        <AssociationConnector Association="serdbModel.FK_mark_material" />
+        <AssociationConnector Association="serdbModel.FK_mark_student" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,14 +12,6 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.year)
         </dt>
 
@@ -60,6 +52,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.material.material_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.material.material_name)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.specialization.name)
         </dt>
 
@@ -69,7 +69,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
