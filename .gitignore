@@ -154,4 +154,4 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
-EduServer/docs/_تعلم البرمجة مع بايثون 3.pdf
+*.pdf
